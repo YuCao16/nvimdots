@@ -69,11 +69,6 @@ M.on_attach = function(client, bufnr)
 
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	-- keybindings
-	if client.name == "rust_analyzer" then
-		vim.keymap.set("n", "<Leader>gh", require("rust-tools").hover_actions.hover_actions, { buffer = bufnr })
-	end
-
 	-- autocmd
 	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
 	vim.api.nvim_create_autocmd("cursorhold", {

@@ -18,6 +18,14 @@ local hide_diagnostic = function()
 		vim.diagnostic.enable()
 	end
 end
+local run_code = function(buf)
+	local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+	if filetype == "rust" then
+		require("rust-tools").hover_actions.hover_actions()
+	elseif filetype == "python" then
+		require("code_runner.commands").run_code(filetype)
+	end
+end
 
 function mapping.lsp(buf)
 	local map = {
@@ -45,6 +53,11 @@ function mapping.lsp(buf)
 			:with_buffer(buf)
 			:with_desc("lsp: Toggle diagnostic quickfix"),
 		["n|gh"] = map_cmd("<cmd>lua vim.lsp.buf.references()<CR>"):with_buffer(buf):with_desc("lsp: Goto references"),
+		["n|g2"] = map_callback(function()
+				run_code(buf)
+			end)
+			:with_buffer(buf)
+			:with_desc("Run code"),
 		["n|]d"] = map_cr('<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>')
 			:with_buffer(buf)
 			:with_desc("lsp: Goto next diagnostic"),
