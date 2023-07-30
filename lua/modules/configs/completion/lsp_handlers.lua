@@ -101,7 +101,7 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.server_capabilities.documentHighlightProvider then
-		local highlight_name = vim.fn.printf("lsp_document_highlight_%d", bufnr)
+		local highlight_name = vim.fn.printf("lsp_document_highlight_%d", bufnr) or "lsp_document_highlight_0"
 		vim.api.nvim_create_augroup(highlight_name, {})
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			group = highlight_name,
