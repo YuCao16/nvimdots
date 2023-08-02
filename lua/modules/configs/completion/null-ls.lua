@@ -92,6 +92,7 @@ return function()
 				"--ignore=N803",
 				"--ignore=N802",
 				"--ignore=N806",
+				"--ignore=N816",
 				"--select=I",
 				"--select=A",
 				"--select=ANN",
