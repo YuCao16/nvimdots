@@ -27,6 +27,13 @@ return function()
 		},
 		float_opts = {
 			border = "rounded",
+			width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+
+			height = function()
+				return math.floor((vim.o.lines - vim.o.cmdheight) * 0.75)
+			end,
 		},
 
 		open_mapping = false, -- [[<c-\>]],
