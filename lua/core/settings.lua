@@ -10,7 +10,7 @@ settings["format_on_save"] = false
 
 -- Set to cmp menu max width
 ---@type number
-settings["cmp_max_width"] = 30
+settings["cmp_max_width"] = 45
 
 -- Set it to false if the notification after formatting is annoying.
 ---@type boolean
