@@ -164,7 +164,21 @@ return vim.schedule_wrap(function()
 			max_file_lines = 2000, -- Do not enable for files with more than 2000 lines, int
 		},
 		context_commentstring = { enable = true, enable_autocmd = false },
-		matchup = { enable = true },
+		matchup = {
+			enable = true,
+			disable = function(_, bufnr)
+				local disable_type = { "python" }
+				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				if table_contains(disable_type, filetype) then
+					return true
+				end
+				local buf_name = vim.api.nvim_buf_get_name(bufnr)
+				local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+				return file_size > 256 * 1024 or vim.fn.line("$") > 1000
+			end,
+			disable_virtual_text = true,
+			include_match_words = true,
+		},
 	})
 	require("nvim-treesitter.install").prefer_git = true
 	if use_ssh then

@@ -67,6 +67,7 @@ return function()
 				["o"] = "open_with_window_picker",
 				["/"] = "",
 				["l"] = "",
+				-- ["l"] = "focus_preview",
 				-- ["h"] = "toggle_hidden",
 				-- ["H"] = "",
 			},
