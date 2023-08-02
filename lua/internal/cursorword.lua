@@ -64,7 +64,7 @@ end
 M.setup = function()
 	highlight_cursorword()
 
-	vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+	vim.api.nvim_create_autocmd({ "CursorHold", "CursorMovedI" }, {
 		pattern = "*",
 		callback = cursor_moved,
 	})
