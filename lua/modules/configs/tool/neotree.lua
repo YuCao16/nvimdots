@@ -66,6 +66,7 @@ return function()
 				["<cr>"] = "open_with_window_picker",
 				["o"] = "open_with_window_picker",
 				["/"] = "",
+				["l"] = "",
 				-- ["h"] = "toggle_hidden",
 				-- ["H"] = "",
 			},
