@@ -23,7 +23,7 @@ editor["gbprod/cutlass.nvim"] = {
 }
 editor["windwp/nvim-autopairs"] = {
 	lazy = true,
-	event = "InsertEnter",
+	event = { "InsertEnter" },
 	config = require("editor.autopairs"),
 }
 editor["LunarVim/bigfile.nvim"] = {
@@ -37,12 +37,12 @@ editor["famiu/bufdelete.nvim"] = {
 }
 editor["numToStr/Comment.nvim"] = {
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
+	event = { "VeryLazy" },
 	config = require("editor.comment"),
 }
 editor["folke/todo-comments.nvim"] = {
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI", "VeryLazy" },
+	event = { "VeryLazy" },
 	config = true,
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
@@ -59,8 +59,13 @@ editor["junegunn/vim-easy-align"] = {
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
 	version = "*",
-	event = { "CursorHold", "CursorHoldI" },
+	event = { "VeryLazy" },
 	config = require("editor.hop"),
+}
+editor["folke/flash.nvim"] = {
+	lazy = true,
+	event = { "VeryLazy" },
+	config = true,
 }
 editor["RRethy/vim-illuminate"] = {
 	lazy = true,
