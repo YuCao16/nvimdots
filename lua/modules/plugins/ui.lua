@@ -64,7 +64,7 @@ ui["folke/paint.nvim"] = { -- Easily add additional highlights to your buffers T
 }
 ui["petertriho/nvim-scrollbar"] = {
 	lazy = true,
-	event = {"VeryLazy"},
+	event = { "VeryLazy" },
 	config = require("ui.scroll_bar"),
 }
 ui["folke/zen-mode.nvim"] = {
@@ -102,6 +102,12 @@ ui["itchyny/vim-highlighturl"] = {
 ui["stevearc/dressing.nvim"] = {
 	lazy = false,
 	config = require("ui.dressing_config"),
+}
+ui["uga-rosa/ccc.nvim"] = {
+	lazy = true,
+	cmd = { "CCCPick", "CCCHighlighterToggle", "CCCHighlighterEnable", "CCCHighlighterDisable" },
+	ft = { "lua" },
+	config = require("ui.ccc_config"),
 }
 
 return ui
