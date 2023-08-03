@@ -58,7 +58,7 @@ tool["folke/trouble.nvim"] = {
 }
 tool["folke/which-key.nvim"] = {
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
+	event = { "VeryLazy" },
 	config = require("tool.which-key"),
 }
 tool["yucao16/registers.nvim"] = {
@@ -125,13 +125,12 @@ tool["stevearc/oil.nvim"] = {
 }
 tool["gelguy/wilder.nvim"] = {
 	lazy = true,
-	event = "VeryLazy",
+	event = { "CmdlineEnter" },
 	config = require("tool.wilder"),
 	dependencies = "romgrk/fzy-lua-native",
 }
 tool["nvim-pack/nvim-spectre"] = {
 	lazy = true,
-	event = "VeryLazy",
 	cmd = "Spectre",
 	conifg = true,
 	opts = { open_cmd = "noswapfile 50vnew" },
