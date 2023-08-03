@@ -59,18 +59,13 @@ editor["junegunn/vim-easy-align"] = {
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
 	version = "*",
-	event = { "VeryLazy" },
+	cmd = { "HopWord" },
 	config = require("editor.hop"),
 }
 editor["folke/flash.nvim"] = {
 	lazy = true,
 	event = { "VeryLazy" },
 	config = true,
-}
-editor["RRethy/vim-illuminate"] = {
-	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
-	config = require("editor.vim-illuminate"),
 }
 editor["lambdalisue/suda.vim"] = {
 	lazy = true,
@@ -132,22 +127,15 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 			config = require("editor.tree-surfer"),
 		},
 		{
-			"Wansmer/treesj",
-			config = require("editor.treesj"),
-		},
-		{
 			"hiphish/rainbow-delimiters.nvim",
 			config = require("editor.rainbow_delims"),
 		},
-		{
-			"nvim-treesitter/nvim-treesitter-context",
-			config = require("editor.ts-context"),
-		},
-		{
-			"uga-rosa/ccc.nvim",
-			config = require("editor.ccc_config"),
-		},
 	},
+}
+editor["Wansmer/treesj"] = {
+	cmd = { "TSJJoin", "TSJSplit", "TSJToggle" },
+	config = require("editor.treesj"),
+	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 
 return editor
