@@ -52,7 +52,7 @@ completion["hrsh7th/nvim-cmp"] = {
 		{ "hrsh7th/cmp-path" },
 		{ "f3fora/cmp-spell" },
 		{ "hrsh7th/cmp-buffer" },
-		{ "kdheepak/cmp-latex-symbols", ft = { "markdown", "latex", "tex" } },
+		{ "kdheepak/cmp-latex-symbols" },
 		{ "hrsh7th/cmp-cmdline" },
 		{ "ray-x/cmp-treesitter", commit = "c8e3a74" },
 		{ "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
