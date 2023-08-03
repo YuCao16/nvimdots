@@ -65,7 +65,7 @@ editor["smoka7/hop.nvim"] = {
 editor["folke/flash.nvim"] = {
 	lazy = true,
 	event = { "VeryLazy" },
-	config = true,
+	config = require("editor.flash"),
 }
 editor["lambdalisue/suda.vim"] = {
 	lazy = true,
