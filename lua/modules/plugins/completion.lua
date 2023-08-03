@@ -63,7 +63,6 @@ completion["hrsh7th/nvim-cmp"] = {
 				"MunifTanjim/nui.nvim",
 			},
 			config = require("completion.codeium"),
-			branch = "patch-1",
 		},
 	},
 }
