@@ -16,7 +16,7 @@ editor["yucao16/persisted.nvim"] = {
 }
 editor["gbprod/cutlass.nvim"] = {
 	lazy = true,
-	event = { "BufReadPost" },
+	event = { "VeryLazy" },
 	config = function()
 		require("cutlass").setup({ cut_key = "c" })
 	end,
@@ -33,16 +33,16 @@ editor["LunarVim/bigfile.nvim"] = {
 }
 editor["famiu/bufdelete.nvim"] = {
 	lazy = true,
-	event = "BufReadPre",
+	event = { "BufReadPost" },
 }
 editor["numToStr/Comment.nvim"] = {
 	lazy = true,
-	event = { "VeryLazy" },
+	event = { "CursorHold" },
 	config = require("editor.comment"),
 }
 editor["folke/todo-comments.nvim"] = {
 	lazy = true,
-	event = { "VeryLazy" },
+	cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
 	config = true,
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
@@ -54,7 +54,7 @@ editor["sindrets/diffview.nvim"] = {
 }
 editor["junegunn/vim-easy-align"] = {
 	lazy = true,
-	cmd = "EasyAlign",
+	cmd = { "EasyAlign" },
 }
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
@@ -84,17 +84,12 @@ editor["yorickpeterse/nvim-window"] = {
 editor["mg979/vim-visual-multi"] = {
 	lazy = true,
 	branch = "master",
-	event = { "BufAdd", "InsertEnter" },
+	event = { "CursorHold", "InsertEnter" },
 }
 editor["kylechui/nvim-surround"] = {
 	lazy = true,
-	event = { "BufAdd", "InsertEnter" },
+	event = { "CursorHold", "InsertEnter" },
 	config = true,
-}
-editor["roobert/search-replace.nvim"] = {
-	lazy = true,
-	event = "BufReadPost",
-	config = require("editor.search-replace"),
 }
 editor["nmac427/guess-indent.nvim"] = {
 	event = { "BufReadPost" },
@@ -111,12 +106,11 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 			vim.api.nvim_command("TSUpdate")
 		end
 	end,
-	event = "BufReadPost",
+	event = { "BufReadPost" },
 	config = require("editor.treesitter"),
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects" },
 		{ "RRethy/nvim-treesitter-endwise" },
-		{ "nvim-treesitter/playground" },
 		{ "windwp/nvim-ts-autotag" },
 		{ "JoosepAlviste/nvim-ts-context-commentstring" },
 		{ "mfussenegger/nvim-treehopper" },
@@ -135,6 +129,11 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 editor["Wansmer/treesj"] = {
 	cmd = { "TSJJoin", "TSJSplit", "TSJToggle" },
 	config = require("editor.treesj"),
+	dependencies = { "nvim-treesitter/nvim-treesitter" },
+}
+editor["nvim-treesitter/playground"] = {
+	lazy = true,
+	cmd = "TSPlaygroundToggle",
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 

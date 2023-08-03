@@ -2,7 +2,7 @@ local ui = {}
 
 ui["yucao16/dashboard-nvim"] = {
 	lazy = true,
-	event = "BufWinEnter",
+	event = { "BufWinEnter" },
 	config = require("ui.dashboard"),
 }
 ui["akinsho/bufferline.nvim"] = {
@@ -20,7 +20,7 @@ ui["Jint-lzxy/nvim"] = { -- catppuccin
 	config = require("ui.catppuccin"),
 }
 ui["folke/tokyonight.nvim"] = {
-	lazy = false,
+	lazy = true,
 }
 ui["navarasu/onedark.nvim"] = {
 	lazy = false,
@@ -29,7 +29,7 @@ ui["navarasu/onedark.nvim"] = {
 ui["j-hui/fidget.nvim"] = {
 	lazy = true,
 	branch = "legacy",
-	event = "LspAttach",
+	event = { "LspAttach" },
 	config = require("ui.fidget"),
 }
 ui["lewis6991/gitsigns.nvim"] = {
@@ -39,7 +39,7 @@ ui["lewis6991/gitsigns.nvim"] = {
 }
 ui["lukas-reineke/indent-blankline.nvim"] = {
 	lazy = true,
-	event = "BufReadPost",
+	event = { "BufReadPost" },
 	config = require("ui.indent-blankline"),
 }
 ui["nvim-lualine/lualine.nvim"] = {
@@ -54,12 +54,12 @@ ui["karb94/neoscroll.nvim"] = {
 }
 ui["rcarriga/nvim-notify"] = {
 	lazy = true,
-	event = "VeryLazy",
+	event = { "VeryLazy" },
 	config = require("ui.notify"),
 }
 ui["folke/paint.nvim"] = { -- Easily add additional highlights to your buffers Topics
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
+	event = { "BufReadPost" },
 	config = require("ui.paint"),
 }
 ui["petertriho/nvim-scrollbar"] = {
@@ -76,7 +76,6 @@ ui["dvoytik/hi-my-words.nvim"] = {
 	lazy = true,
 	config = true,
 	cmd = { "HiMyWordsToggle", "HiMyWordsClear" },
-	event = { "VeryLazy" },
 }
 ui["machakann/vim-highlightedyank"] = {
 	lazy = true,
@@ -94,13 +93,14 @@ ui["lvimuser/lsp-inlayhints.nvim"] = {
 }
 ui["itchyny/vim-highlighturl"] = {
 	lazy = true,
-	event = "BufReadPost",
+	event = { "BufReadPost" },
 	config = function()
 		vim.g.highlighturl_guifg = "#8AB4F8"
 	end,
 }
 ui["stevearc/dressing.nvim"] = {
-	lazy = false,
+	lazy = true,
+	event = { "VeryLazy" },
 	config = require("ui.dressing_config"),
 }
 ui["uga-rosa/ccc.nvim"] = {

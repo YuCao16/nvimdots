@@ -62,7 +62,8 @@ tool["folke/which-key.nvim"] = {
 	config = require("tool.which-key"),
 }
 tool["yucao16/registers.nvim"] = {
-	lazy = false,
+	lazy = true,
+	event = { "VeryLazy" },
 	config = function()
 		vim.g["registers_delay"] = 200
 		vim.g["registers_window_border"] = "rounded"
@@ -75,16 +76,14 @@ tool["sidebar-nvim/sidebar.nvim"] = {
 	cmd = { "SidebarNvimOpen", "SidebarNvimFocus", "SidebarNvimToggle" },
 	config = require("tool.sidebar"),
 }
-tool["akinsho/git-conflict.nvim"] = {
-	event = "VeryLazy",
-}
 tool["NeogitOrg/neogit"] = {
 	lazy = true,
 	cmd = { "Neogit" },
 	config = require("tool.neogit_config"),
 }
 tool["folke/edgy.nvim"] = {
-	lazy = false,
+	lazy = true,
+	event = { "VeryLazy" },
 	config = require("tool.edgy"),
 }
 tool["yucao16/vista.nvim"] = {
@@ -105,17 +104,15 @@ tool["danymat/neogen"] = {
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter" },
 	},
-	config = function()
-		require("neogen").setup({})
-	end,
+	config = true,
 }
 tool["neomake/neomake"] = {
 	lazy = true,
-	event = { "BufAdd", "InsertEnter" },
+	cmd = { "Neomake" },
 }
 tool["samjwill/nvim-unception"] = {
 	lazy = true,
-	event = "VeryLazy",
+	event = { "TermOpen" },
 	config = require("tool.unception"),
 }
 tool["stevearc/oil.nvim"] = {
