@@ -98,7 +98,6 @@ lang["dhruvasagar/vim-table-mode"] = {
 	lazy = true,
 	cmd = { "TableModeEnable", "TableModelToggle" },
 	ft = { "markdown", "tex", "ipynb", "org" },
-	event = { "BufAdd", "InsertEnter" },
 	config = require("lang.vim_table_mode"),
 }
 lang["mtdl9/vim-log-highlighting"] = {
