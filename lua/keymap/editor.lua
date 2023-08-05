@@ -30,15 +30,29 @@ local plug_map = {
 	-- Plugin: treehopper
 	["o|m"] = map_cu("lua require('tsht').nodes()"):with_silent():with_desc("jump: Operate across syntax tree"),
 
+	-- Plugin: treesj
+	["n|<space>m"] = map_cu("TSJToggle"):with_silent():with_desc("Treesj: Toggle"),
+	["n|<space>s"] = map_cu("TSJSplit"):with_silent():with_desc("Treesj: Split"),
+	["n|<space>j"] = map_cu("TSJJoin"):with_silent():with_desc("Treesj: Join"),
+
 	-- Plugin suda.vim
 	["n|<A-s>"] = map_cu("SudaWrite"):with_silent():with_noremap():with_desc("editn: Save file using sudo"),
 
 	-- Plugin flash.nvim
 	["n|S"] = map_cmd("<Cmd>lua require('flash').jump()<CR>"):with_silent():with_noremap():with_desc("Flash"),
-	["n|<leader>gs"] = map_cmd("<Cmd>lua require('flash').treesitter()<CR>"):with_silent():with_noremap():with_desc("Flash Treesitter"),
+	["n|<leader>gs"] = map_cmd("<Cmd>lua require('flash').treesitter()<CR>")
+		:with_silent()
+		:with_noremap()
+		:with_desc("Flash Treesitter"),
 	["o|r"] = map_cmd("<Cmd>lua require('flash').remote()<CR>"):with_silent():with_noremap():with_desc("Remote Flash"),
-	["ox|R"] = map_cmd("<Cmd>lua require('flash').treesitter_search()<CR>"):with_silent():with_noremap():with_desc("Treesitter Search"),
-	["c|<c-s>"] = map_cmd("<Cmd>lua require('flash').toggle()<CR>"):with_silent():with_noremap():with_desc("Toggle Flash Search"),
+	["ox|R"] = map_cmd("<Cmd>lua require('flash').treesitter_search()<CR>")
+		:with_silent()
+		:with_noremap()
+		:with_desc("Treesitter Search"),
+	["c|<c-s>"] = map_cmd("<Cmd>lua require('flash').toggle()<CR>")
+		:with_silent()
+		:with_noremap()
+		:with_desc("Toggle Flash Search"),
 }
 
 bind.nvim_load_mapping(plug_map)
