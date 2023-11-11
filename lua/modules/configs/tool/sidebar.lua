@@ -1,5 +1,5 @@
 return function()
-	require("sidebar-nvim").setup({
+	require("modules.utils").load_plugin("sidebar-nvim", {
 		sections = {
 			"datetime",
 			"git",

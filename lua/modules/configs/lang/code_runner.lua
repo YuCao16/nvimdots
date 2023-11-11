@@ -1,5 +1,5 @@
 return function()
-	require("code_runner").setup({
+	require("modules.utils").load_plugin("code_runner", {
 		mode = "term",
 		focus = true,
 		filetype = {

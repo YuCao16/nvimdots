@@ -29,7 +29,7 @@ return function()
 		highlights = {
 			accent = wilder.make_hl("WilderAccent", "Pmenu", { { a = 1 }, { a = 1 }, { foreground = "#f4468f" } }),
 		},
-		apply_incsearch_fix = true,
+		apply_incsearch_fix = false,
 		separator = " | ",
 		left = { " ", wilder.wildmenu_spinner(), " " },
 		right = { " ", wilder.wildmenu_index() },
@@ -41,4 +41,6 @@ return function()
 			substitute = wildmenu_renderer,
 		})
 	)
+
+	require("modules.utils").load_plugin("wilder", { modes = { ":", "/", "?" } })
 end

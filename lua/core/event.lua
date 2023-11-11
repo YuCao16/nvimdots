@@ -13,6 +13,7 @@ function autocmd.nvim_create_augroups(definitions)
 	end
 end
 
+-- defer setting LSP-related keymaps till LspAttach
 local mapping = require("keymap.completion")
 _G._lspkeymap_loaded_bufnr = {}
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -23,14 +24,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
-vim.api.nvim_create_augroup('IndentBlankLineFix', {})
-vim.api.nvim_create_autocmd('WinScrolled', {
-  group = 'IndentBlankLineFix',
-  callback = function()
-    if vim.v.event.all.leftcol ~= 0 then
-      vim.cmd('silent! IndentBlanklineRefresh')
-    end
-  end,
+vim.api.nvim_create_augroup("IndentBlankLineFix", {})
+vim.api.nvim_create_autocmd("WinScrolled", {
+	group = "IndentBlankLineFix",
+	callback = function()
+		if vim.v.event.all.leftcol ~= 0 then
+			vim.cmd("silent! IndentBlanklineRefresh")
+		end
+	end,
 })
 
 -- auto close NvimTree
@@ -188,9 +189,9 @@ function autocmd.load_autocmds()
 				"nnoremap <leader>h :ClangdSwitchSourceHeaderVSplit<CR>",
 			},
 		},
-		indentline = {
-			{ "WinEnter", "*", 'lua require("indent_blankline.commands").refresh("<bang>" == "!")' },
-		},
+		-- indentline = {
+		-- 	{ "WinEnter", "*", 'lua require("indent_blankline.commands").refresh("<bang>" == "!")' },
+		-- },
 		-- yank = {
 		-- 	{
 		-- 		"TextYankPost",
@@ -200,7 +201,7 @@ function autocmd.load_autocmds()
 		-- },
 	}
 
-	autocmd.nvim_create_augroups(definitions)
+	autocmd.nvim_create_augroups(require("modules.utils").extend_config(definitions, "user.event"))
 end
 
 autocmd.load_autocmds()

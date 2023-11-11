@@ -1,5 +1,5 @@
 return function()
-	require("onedark").setup({
+	require("modules.utils").load_plugin("onedark", {
 		style = "darker",
 		highlights = {
 			-- For native lsp configs

@@ -31,4 +31,6 @@ inoreabbrev <expr> __
           \ <SID>isAtStartOfLine('__') ?
           \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 ]])
+
+require("modules.utils").load_plugin("vim_table_mode", nil, true)
 end

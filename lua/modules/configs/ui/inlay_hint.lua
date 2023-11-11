@@ -8,6 +8,7 @@ return function()
 	vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		group = "LspAttach_inlayhints",
 		callback = function(args)
+			local buf = args.buf
 			if not (args.data and args.data.client_id) then
 				return
 			end

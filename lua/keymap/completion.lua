@@ -28,8 +28,8 @@ local run_code = function(buf)
 end
 
 function mapping.lsp(buf)
+	-- LSP-related keymaps, ONLY effective in buffers with LSP(s) attached
 	local map = {
-		-- LSP-related keymaps, work only when event = { "InsertEnter", "LspStart" }
 		["n|<leader>li"] = map_cr("LspInfo"):with_buffer(buf):with_desc("lsp: Info"),
 		["n|<leader>lr"] = map_cr("LspRestart"):with_buffer(buf):with_nowait():with_desc("lsp: Restart"),
 		["n|<leader>gf"] = map_cr("Lspsaga lsp_finder"):with_buffer(buf):with_desc("lsp: Toggle finder"),
@@ -66,6 +66,11 @@ function mapping.lsp(buf)
 			:with_desc("lsp: Goto prev diagnostic"),
 	}
 	bind.nvim_load_mapping(map)
+
+	local ok, user_mappings = pcall(require, "user.keymap.completion")
+	if ok and type(user_mappings.lsp) == "function" then
+		require("modules.utils.keymap").replace(user_mappings.lsp(buf))
+	end
 end
 
 return mapping

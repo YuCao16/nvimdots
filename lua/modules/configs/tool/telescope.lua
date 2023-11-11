@@ -17,7 +17,7 @@ return function()
 		end,
 	}
 
-	require("telescope").setup({
+	require("modules.utils").load_plugin("telescope", {
 		defaults = {
 			mappings = { i = mm, n = mm },
 			vimgrep_arguments = {

@@ -1,5 +1,5 @@
 return function()
-	require("headlines").setup({
+	require("modules.utils").load_plugin("headlines", {
 		markdown = {
 			headline_highlights = { "Headline1", "Headline2" },
 			codeblock_highlight = "CodeBlock",

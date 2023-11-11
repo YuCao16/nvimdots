@@ -16,6 +16,10 @@ settings["cmp_max_width"] = 45
 ---@type boolean
 settings["format_notify"] = true
 
+-- Set it to false if you don't use copilot
+---@type boolean
+settings["use_copilot"] = false
+
 -- Set it to false if diagnostics virtual text is annoying.
 -- If disabled, you may browse lsp diagnostics using trouble.nvim (press `gt` to toggle it).
 ---@type boolean
@@ -35,6 +39,11 @@ settings["diagnostics_level"] = "Hint"
 settings["format_disabled_dirs"] = {
 	"~/format_disabled_dir",
 }
+
+-- Set the plugins to disable here.
+-- Example: "Some-User/A-Repo"
+---@type string[]
+settings["disabled_plugins"] = {}
 
 -- Set it to false if you don't use nvim to open big files.
 ---@type boolean
@@ -119,4 +128,4 @@ settings["dap_deps"] = {
 	"python", -- Python (debugpy)
 }
 
-return settings
+return require("modules.utils").extend_config(settings, "user.settings")

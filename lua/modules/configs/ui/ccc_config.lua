@@ -1,5 +1,5 @@
 return function()
-	require("ccc").setup({
+	require("modules.utils").load_plugin("ccc", {
 		default_color = "#000000", -- The default color used when a color cannot be picked. It must be HEX format.
 		bar_char = "■", -- The character used for the sliders.
 		point_char = "◇", -- The character used for the cursor point on the sliders.

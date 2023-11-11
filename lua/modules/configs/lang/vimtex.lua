@@ -17,4 +17,6 @@ return function()
 		vim.g.vimtex_view_sioyek_exe = "sioyek.exe"
 		vim.g.vimtex_callback_progpath = "wsl nvim"
 	end
+
+	require("modules.utils").load_plugin("vimtex", nil, true)
 end

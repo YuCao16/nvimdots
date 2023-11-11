@@ -1,5 +1,5 @@
 return function()
-	require("neogit").setup({
+	require("modules.utils").load_plugin("neogit", {
 		disable_signs = false,
 		disable_hint = false,
 		disable_context_highlighting = true,

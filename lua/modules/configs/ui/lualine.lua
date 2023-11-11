@@ -251,7 +251,7 @@ return function()
 		end
 		return msg
 	end
-	require("lualine").setup({
+	require("modules.utils").load_plugin("lualine", {
 		options = {
 			-- component_separators = "|",
 			component_separators = "",

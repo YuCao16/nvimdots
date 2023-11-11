@@ -1,6 +1,5 @@
 return function()
-    -- require("modules.utils").gen_vistakind_hl()
-	require("vista-nvim").setup({
+	require("modules.utils").load_plugin("vista-nvim", {
 		theme = "tree",
 		-- TODO: fix width, wirter.lua clean_path
 		width = 28,

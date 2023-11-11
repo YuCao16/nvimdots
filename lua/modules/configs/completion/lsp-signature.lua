@@ -1,5 +1,5 @@
 return function()
-	require("lsp_signature").setup({
+	require("modules.utils").load_plugin("lsp_signature", {
 		-- TODO: Remove the following line when nvim-cmp#1613 gets resolved
 		check_completion_visible = false,
 		debug = false, -- set to true to enable debug logging

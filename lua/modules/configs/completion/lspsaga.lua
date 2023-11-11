@@ -1,7 +1,7 @@
 return function()
 	require("modules.utils").gen_lspkind_hl()
 
-	require("lspsaga").setup({
+	require("modules.utils").load_plugin("lspsaga", {
 		ui = {
 			-- currently only round theme
 			theme = "round",

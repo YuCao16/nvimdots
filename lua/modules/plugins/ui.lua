@@ -39,7 +39,7 @@ ui["lewis6991/gitsigns.nvim"] = {
 }
 ui["lukas-reineke/indent-blankline.nvim"] = {
 	lazy = true,
-	event = { "BufReadPost" },
+	event = { "CursorHold", "CursorHoldI" },
 	config = require("ui.indent-blankline"),
 }
 ui["nvim-lualine/lualine.nvim"] = {
@@ -109,5 +109,9 @@ ui["uga-rosa/ccc.nvim"] = {
 	ft = { "lua" },
 	config = require("ui.ccc_config"),
 }
+-- ui["Bekaboo/deadcolumn.nvim"] = {
+-- 	lazy = true,
+-- 	event = { "VeryLazy" },
+-- }
 
 return ui

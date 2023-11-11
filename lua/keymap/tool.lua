@@ -101,7 +101,7 @@ local plug_map = {
 		:with_silent()
 		:with_desc("edit: Show undo history"),
 	["n|<leader>sF"] = map_callback(function()
-			require("telescope").extensions.frecency.frecency()
+			require("telescope").extensions.frecency.frecency({})
 		end)
 		:with_noremap()
 		:with_silent()

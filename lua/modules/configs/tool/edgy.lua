@@ -1,5 +1,5 @@
 return function()
-	require("edgy").setup({
+	require("modules.utils").load_plugin("edgy", {
 		exit_when_last = true,
 		animate = { enabled = false },
 		wo = {

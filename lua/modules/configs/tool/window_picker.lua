@@ -1,5 +1,5 @@
 return function()
-	require("window-picker").setup({
+	require("modules.utils").load_plugin("window-picker", {
 		-- hint = "floating-big-letter",
 		autoselect_one = true,
 		include_current = false,

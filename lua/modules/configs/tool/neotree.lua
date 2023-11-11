@@ -1,5 +1,5 @@
 return function()
-	require("neo-tree").setup({
+	require("modules.utils").load_plugin("neo-tree", {
 		close_if_last_window = true,
 		enable_diagnostics = false,
 		popup_border_style = "rounded",

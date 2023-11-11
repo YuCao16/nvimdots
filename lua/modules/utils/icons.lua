@@ -12,6 +12,7 @@ local data = {
 		Field = "󰇽",
 		File = "󰈙",
 		Folder = "󰉋",
+		Fragment = "",
 		Function = "󰊕",
 		Interface = "",
 		Implementation = "",
@@ -99,6 +100,7 @@ local data = {
 		Conflict = "",
 	},
 	ui = {
+		Accepted = "",
 		ArrowClosed = "",
 		ArrowOpen = "",
 		BigCircle = "",
@@ -237,9 +239,9 @@ local data = {
 		FUNC = "󰊕",
 		VAR = "󰋙",
 	},
-    other = {
-        ellipsis = "…",
-    }
+	other = {
+		ellipsis = "…",
+	},
 }
 
 ---Get a specific icon set.

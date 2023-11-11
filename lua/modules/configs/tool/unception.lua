@@ -7,5 +7,7 @@ return function()
 	})
 
 	vim.g.unception_open_buffer_in_new_tab = true
+
+	require("modules.utils").load_plugin("unception", nil, true)
 end
 

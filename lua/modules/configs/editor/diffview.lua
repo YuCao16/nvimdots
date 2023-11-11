@@ -1,5 +1,5 @@
 return function()
-	require("diffview").setup({
+	require("modules.utils").load_plugin("diffview", {
 		view = {
 			merge_tool = {
 				disable_diagnostics = true,

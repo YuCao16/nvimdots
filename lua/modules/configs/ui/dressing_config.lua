@@ -1,5 +1,5 @@
 return function()
-	require("dressing").setup({
+	require("modules.utils").load_plugin("dressing", {
 		input = {
 			-- Set to false to disable the vim.ui.input implementation
 			enabled = true,

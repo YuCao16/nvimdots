@@ -3,7 +3,7 @@ return function()
 		ts = require("modules.utils.icons").get("ts"),
 	}
 
-	require("syntax-tree-surfer").setup({
+	require("modules.utils").load_plugin("syntax-tree-surfer", {
 		highlight_group = "STS_highlight",
 		disable_no_instance_found_report = false,
 		default_desired_types = {

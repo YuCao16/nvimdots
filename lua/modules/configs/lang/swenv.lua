@@ -1,5 +1,5 @@
 return function()
-	require("swenv").setup({
+	require("modules.utils").load_plugin("swenv", {
 		-- Should return a list of tables with a `name` and a `path` entry each.
 		-- Gets the argument `venvs_path` set below.
 		-- By default just lists the entries in `venvs_path`.

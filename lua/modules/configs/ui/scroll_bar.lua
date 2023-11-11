@@ -1,12 +1,12 @@
 return function()
-	require("scrollbar").setup({
+	require("modules.utils").load_plugin("scrollbar", {
 		excluded_filetypes = {
-			"cmp_docs",
-			"cmp_menu",
 			"noice",
 			"prompt",
 			"TelescopePrompt",
 			"lazy",
+			"cmp_menu",
+			"cmp_docs",
 		},
 		exclude_func = function(winid, bufnr)
 			if not vim.api.nvim_win_is_valid(winid) then

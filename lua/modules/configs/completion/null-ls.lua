@@ -3,7 +3,6 @@ return function()
 	local methods = require("null-ls.methods")
 	local helpers = require("null-ls.helpers")
 
-	local mason_null_ls = require("mason-null-ls")
 	local btns = null_ls.builtins
 
 	local is_executable = function(cmd_name, cond)
@@ -112,7 +111,7 @@ return function()
 			condition = is_executable("ruff"),
 		}),
 	}
-	null_ls.setup({
+	require("modules.utils").load_plugin("null-ls", {
 		border = "rounded",
 		debug = false,
 		log_level = "warn",
@@ -120,12 +119,7 @@ return function()
 		sources = sources,
 	})
 
-	mason_null_ls.setup({
-		ensure_installed = require("core.settings").null_ls_deps,
-		automatic_installation = false,
-		automatic_setup = true,
-		handlers = {},
-	})
+	require("completion.mason-null-ls").setup()
 
 	-- Setup usercmd to register/deregister available source(s)
 	local function _gen_completion()

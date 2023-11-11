@@ -1,5 +1,5 @@
 return function()
-	require("guess-indent").setup({
+	require("modules.utils").load_plugin("guess-indent", {
 		auto_cmd = true, -- Set to false to disable automatic execution
 		override_editorconfig = false, -- Set to true to override settings set by .editorconfig
 		filetype_exclude = { -- A list of filetypes for which the auto command gets disabled

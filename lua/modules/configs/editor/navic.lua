@@ -92,7 +92,7 @@ return function()
 		return value
 	end
 
-	navic.setup({
+	require("modules.utils").load_plugin("nvim-navic", {
 		icons = require("modules.utils.icons").get("kind_space"),
 		highlight = true,
 		separator = " 〉",
