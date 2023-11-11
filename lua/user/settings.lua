@@ -3,6 +3,11 @@ local settings = {}
 
 -- Examples
 settings["colorscheme"] = "onedark"
+
+-- Set to cmp menu max width
+---@type number
+settings["cmp_max_width"] = 45
+
 settings["diagnostics_virtual_text"] = false
 settings["format_on_save"] = false
 settings["lsp_deps"] = {
