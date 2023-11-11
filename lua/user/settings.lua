@@ -2,8 +2,17 @@
 local settings = {}
 
 -- Examples
-settings["use_ssh"] = true
-
 settings["colorscheme"] = "onedark"
-
+settings["diagnostics_virtual_text"] = false
+settings["format_on_save"] = false
+settings["lsp_deps"] = {
+	"bashls",
+	"clangd",
+	"html",
+	"jsonls",
+	"lua_ls",
+	"pyright",
+	"jedi_language_server",
+	"gopls",
+}
 return settings
