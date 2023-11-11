@@ -155,13 +155,11 @@ tool["nvim-telescope/telescope.nvim"] = {
 		{ "nvim-tree/nvim-web-devicons" },
 		{ "nvim-lua/plenary.nvim" },
 		{ "debugloop/telescope-undo.nvim" },
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		{ "LinArcX/telescope-env.nvim" },
-		{ "nvim-telescope/telescope-frecency.nvim", dependencies = {
-			{ "kkharji/sqlite.lua" },
-		} },
 		{ "jvgrootveld/telescope-zoxide" },
+		{ "nvim-telescope/telescope-frecency.nvim" },
 		{ "nvim-telescope/telescope-live-grep-args.nvim" },
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		{ "smartpde/telescope-recent-files" },
 		{ "crispgm/telescope-heading.nvim" },
 		{

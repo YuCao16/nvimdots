@@ -5,7 +5,7 @@ return function()
 		include_current = false,
 		filter_rules = {
 			bo = {
-				filetype = { "neo-tree-popup", "quickfix", "VistaNvim" },
+				filetype = { "neo-tree-popup", "quickfix", "VistaNvim", "notify" },
 				buftype = { "terminal", "quickfix" },
 			},
 		},

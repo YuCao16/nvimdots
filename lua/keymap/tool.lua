@@ -36,19 +36,19 @@ local plug_map = {
 
 	-- Plugin: toggleterm
 	["t|<Esc><Esc>"] = map_cmd([[<C-\><C-n>]]):with_noremap():with_silent(), -- switch to normal mode in terminal.
-	["n|<leader>ch"] = map_cr([[execute v:count . "ToggleTerm direction=horizontal"]])
+	["n|<leader>ch"] = map_cr("ToggleTerm direction=horizontal")
 		:with_noremap()
 		:with_silent()
 		:with_desc("terminal: Toggle horizontal"),
-	["n|<leader>cv"] = map_cr([[execute v:count . "ToggleTerm direction=vertical"]])
+	["n|<leader>cv"] = map_cr("ToggleTerm direction=vertical")
 		:with_noremap()
 		:with_silent()
 		:with_desc("terminal: Toggle vertical"),
-	["n|<leader>cf"] = map_cr([[execute v:count . "ToggleTerm direction=float"]])
+	["n|<leader>cf"] = map_cr("ToggleTerm direction=float")
 		:with_noremap()
 		:with_silent()
 		:with_desc("terminal: Toggle float"),
-	["n|<leader>ct"] = map_cr([[execute v:count . "ToggleTerm direction=tab"]])
+	["n|<leader>ct"] = map_cr("ToggleTerm direction=tab")
 		:with_noremap()
 		:with_silent()
 		:with_desc("terminal: Toggle tab"),
