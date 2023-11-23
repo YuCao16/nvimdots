@@ -110,26 +110,32 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 	lazy = true,
 	build = function()
 		if #vim.api.nvim_list_uis() ~= 0 then
-			vim.api.nvim_command("TSUpdate")
+			vim.api.nvim_command([[TSUpdate]])
 		end
 	end,
-	event = { "BufReadPost" },
+	event = { "BufReadPre" },
 	config = require("editor.treesitter"),
 	dependencies = {
-		{ "nvim-treesitter/nvim-treesitter-textobjects" },
-		{ "RRethy/nvim-treesitter-endwise" },
-		{ "windwp/nvim-ts-autotag" },
-		{ "JoosepAlviste/nvim-ts-context-commentstring" },
-		{ "mfussenegger/nvim-treehopper" },
-		{ "andymass/vim-matchup" },
 		{ "anuvyklack/pretty-fold.nvim" },
+		{ "RRethy/nvim-treesitter-endwise" },
+		{ "andymass/vim-matchup" },
+		{ "mfussenegger/nvim-treehopper" },
+		{ "nvim-treesitter/nvim-treesitter-textobjects" },
 		{
-			"ziontee113/syntax-tree-surfer",
-			config = require("editor.tree-surfer"),
+			"windwp/nvim-ts-autotag",
+			config = require("editor.autotag"),
 		},
 		{
 			"hiphish/rainbow-delimiters.nvim",
 			config = require("editor.rainbow_delims"),
+		},
+		{
+			"JoosepAlviste/nvim-ts-context-commentstring",
+		config = require("editor.ts-context-commentstring"),
+		},
+		{
+			"ziontee113/syntax-tree-surfer",
+			config = require("editor.tree-surfer"),
 		},
 	},
 }
