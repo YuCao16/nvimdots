@@ -22,7 +22,7 @@ ui["Jint-lzxy/nvim"] = { -- catppuccin
 ui["folke/tokyonight.nvim"] = {
 	lazy = true,
 }
-ui["navarasu/onedark.nvim"] = {
+ui["yucao16/onedark.nvim"] = {
 	lazy = false,
 	config = require("ui.onedark"),
 }
