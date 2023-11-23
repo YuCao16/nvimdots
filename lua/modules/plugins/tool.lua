@@ -143,6 +143,11 @@ tool["m4xshen/hardtime.nvim"] = {
 		})
 	end,
 }
+tool["jackMort/ChatGPT.nvim"] = {
+	lazy = true,
+	event = { "VeryLazy" },
+	config = true,
+}
 
 ----------------------------------------------------------------------
 --                        Telescope Plugins                         --
