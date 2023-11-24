@@ -28,7 +28,7 @@ settings["disabled_plugins"] = {
 	"ojroques/nvim-bufdel",
 	"RRethy/vim-illuminate",
 	"romainl/vim-cool",
-	"nvimdev/lspsaga.nvim",
+	-- "nvimdev/lspsaga.nvim",
 	"stevearc/aerial.nvim",
 	"goolord/alpha-nvim",
 	"zbirenbaum/neodim",
