@@ -14,12 +14,16 @@ completion["neovim/nvim-lspconfig"] = {
 		},
 	},
 }
-completion["yucao16/lspsaga.nvim"] = {
+completion["nvimdev/lspsaga.nvim"] = {
 	lazy = true,
 	event = "LspAttach",
 	config = require("completion.lspsaga"),
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	branch = "finder",
+}
+completion["stevearc/aerial.nvim"] = {
+	lazy = true,
+	event = "LspAttach",
+	config = require("completion.aerial"),
 }
 completion["dnlhc/glance.nvim"] = {
 	lazy = true,
@@ -83,12 +87,5 @@ if use_copilot then
 		},
 	}
 end
-completion["kdheepak/cmp-latex-symbols"] = {
-	lazy = true,
-	ft = { "tex", "latex", "markdown" },
-	dependencies = {
-		"hrsh7th/nvim-cmp",
-	},
-}
 
 return completion

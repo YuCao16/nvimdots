@@ -1,9 +1,9 @@
 local ui = {}
 
-ui["yucao16/dashboard-nvim"] = {
+ui["goolord/alpha-nvim"] = {
 	lazy = true,
-	event = { "BufWinEnter" },
-	config = require("ui.dashboard"),
+	event = "BufWinEnter",
+	config = require("ui.alpha"),
 }
 ui["akinsho/bufferline.nvim"] = {
 	lazy = true,
@@ -18,13 +18,6 @@ ui["Jint-lzxy/nvim"] = { -- catppuccin
 	branch = "refactor/syntax-highlighting",
 	name = "catppuccin",
 	config = require("ui.catppuccin"),
-}
-ui["folke/tokyonight.nvim"] = {
-	lazy = true,
-}
-ui["yucao16/onedark.nvim"] = {
-	lazy = false,
-	config = require("ui.onedark"),
 }
 ui["j-hui/fidget.nvim"] = {
 	lazy = true,
@@ -46,6 +39,12 @@ ui["nvim-lualine/lualine.nvim"] = {
 	event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	config = require("ui.lualine"),
 }
+ui["zbirenbaum/neodim"] = {
+	lazy = true,
+	commit = "9477da0",
+	event = "LspAttach",
+	config = require("ui.neodim"),
+}
 ui["karb94/neoscroll.nvim"] = {
 	lazy = true,
 	event = { "CursorHold", "CursorHoldI" },
@@ -61,56 +60,15 @@ ui["folke/paint.nvim"] = { -- Easily add additional highlights to your buffers T
 	event = { "BufReadPost" },
 	config = require("ui.paint"),
 }
-ui["petertriho/nvim-scrollbar"] = {
+ui["dstein64/nvim-scrollview"] = {
 	lazy = true,
-	event = { "VeryLazy" },
-	config = require("ui.scroll_bar"),
+	event = { "BufReadPost", "BufAdd", "BufNewFile" },
+	config = require("ui.scrollview"),
 }
-ui["folke/zen-mode.nvim"] = {
+ui["edluffy/specs.nvim"] = {
 	lazy = true,
-	cmd = { "ZenMode" },
-	config = require("ui.zenmode"),
+	event = "CursorMoved",
+	config = require("ui.specs"),
 }
-ui["dvoytik/hi-my-words.nvim"] = {
-	lazy = true,
-	config = true,
-	cmd = { "HiMyWordsToggle", "HiMyWordsClear" },
-}
-ui["machakann/vim-highlightedyank"] = {
-	lazy = true,
-	event = { "VeryLazy" },
-}
-ui["kevinhwang91/nvim-bqf"] = {
-	lazy = true,
-	config = true,
-	ft = { "qf" },
-}
-ui["lvimuser/lsp-inlayhints.nvim"] = {
-	lazy = true,
-	event = { "LspAttach" },
-	config = require("ui.inlay_hint"),
-}
-ui["itchyny/vim-highlighturl"] = {
-	lazy = true,
-	event = { "BufReadPost" },
-	config = function()
-		vim.g.highlighturl_guifg = "#8AB4F8"
-	end,
-}
-ui["stevearc/dressing.nvim"] = {
-	lazy = true,
-	event = { "VeryLazy" },
-	config = require("ui.dressing_config"),
-}
-ui["uga-rosa/ccc.nvim"] = {
-	lazy = true,
-	cmd = { "CCCPick", "CCCHighlighterToggle", "CCCHighlighterEnable", "CCCHighlighterDisable" },
-	ft = { "lua" },
-	config = require("ui.ccc_config"),
-}
--- ui["Bekaboo/deadcolumn.nvim"] = {
--- 	lazy = true,
--- 	event = { "VeryLazy" },
--- }
 
 return ui

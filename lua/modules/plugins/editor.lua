@@ -1,52 +1,45 @@
 local editor = {}
 
-editor["yucao16/persisted.nvim"] = {
+editor["rainbowhxch/accelerated-jk.nvim"] = {
 	lazy = true,
-	cmd = {
-		"SessionToggle",
-		"SessionStart",
-		"SessionStop",
-		"SessionSave",
-		"SessionLoad",
-		"SessionLoadLast",
-		"SessionLoadFromFile",
-		"SessionDelete",
-	},
-	config = require("editor.persisted"),
+	event = "VeryLazy",
+	config = require("editor.accelerated-jk"),
 }
-editor["gbprod/cutlass.nvim"] = {
+editor["m4xshen/autoclose.nvim"] = {
 	lazy = true,
-	event = { "VeryLazy" },
-	config = function()
-		require("cutlass").setup({ cut_key = "c" })
-	end,
+	event = "InsertEnter",
+	config = require("editor.autoclose"),
 }
-editor["windwp/nvim-autopairs"] = {
+editor["max397574/better-escape.nvim"] = {
 	lazy = true,
-	event = { "InsertEnter" },
-	config = require("editor.autopairs"),
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("editor.better-escape"),
 }
 editor["LunarVim/bigfile.nvim"] = {
 	lazy = false,
 	config = require("editor.bigfile"),
 	cond = require("core.settings").load_big_files_faster,
 }
-editor["famiu/bufdelete.nvim"] = {
+editor["ojroques/nvim-bufdel"] = {
 	lazy = true,
-	event = { "BufReadPost" },
+	cmd = { "BufDel", "BufDelAll", "BufDelOthers" },
+}
+-- NOTE: `flash.nvim` is a powerful plugin that can be used as partial or complete replacements for:
+--  > `hop.nvim`,
+--  > `wilder.nvim`
+--  > `nvim-treehopper`
+-- Considering its steep learning curve as well as backward compatibility issues...
+--  > We have no plan to remove the above plugins for the time being.
+-- But as usual, you can always tweak the plugin to your liking.
+editor["folke/flash.nvim"] = {
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("editor.flash"),
 }
 editor["numToStr/Comment.nvim"] = {
 	lazy = true,
 	event = { "CursorHold" },
 	config = require("editor.comment"),
-}
-editor["folke/todo-comments.nvim"] = {
-	lazy = true,
-	cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
-	config = true,
-	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
-	},
 }
 editor["sindrets/diffview.nvim"] = {
 	lazy = true,
@@ -62,45 +55,19 @@ editor["smoka7/hop.nvim"] = {
 	cmd = { "HopWord" },
 	config = require("editor.hop"),
 }
--- NOTE: `flash.nvim` is a powerful plugin that can be used as partial or complete replacements for:
---  > `hop.nvim`,
---  > `wilder.nvim`
---  > `nvim-treehopper`
--- Considering its steep learning curve as well as backward compatibility issues...
---  > We have no plan to remove the above plugins for the time being.
--- But as usual, you can always tweak the plugin to your liking.
-editor["folke/flash.nvim"] = {
+editor["RRethy/vim-illuminate"] = {
 	lazy = true,
 	event = { "CursorHold", "CursorHoldI" },
-	config = require("editor.flash"),
+	config = require("editor.vim-illuminate"),
+}
+editor["romainl/vim-cool"] = {
+	lazy = true,
+	event = { "CursorMoved", "InsertEnter" },
 }
 editor["lambdalisue/suda.vim"] = {
 	lazy = true,
 	cmd = { "SudaRead", "SudaWrite" },
 	config = require("editor.suda"),
-}
-editor["SmiteshP/nvim-navic"] = {
-	lazy = true,
-	event = { "BufReadPost" },
-	config = require("editor.navic"),
-}
-editor["yorickpeterse/nvim-window"] = {
-	lazy = true,
-	event = { "WinNew" },
-}
-editor["mg979/vim-visual-multi"] = {
-	lazy = true,
-	branch = "master",
-	event = { "CursorHold", "InsertEnter" },
-}
-editor["kylechui/nvim-surround"] = {
-	lazy = true,
-	event = { "CursorHold", "InsertEnter" },
-	config = true,
-}
-editor["nmac427/guess-indent.nvim"] = {
-	event = { "BufReadPost" },
-	config = require("editor.guess_indent"),
 }
 
 ----------------------------------------------------------------------
@@ -131,23 +98,13 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 		},
 		{
 			"JoosepAlviste/nvim-ts-context-commentstring",
-		config = require("editor.ts-context-commentstring"),
+			config = require("editor.ts-context-commentstring"),
 		},
 		{
 			"ziontee113/syntax-tree-surfer",
 			config = require("editor.tree-surfer"),
 		},
 	},
-}
-editor["Wansmer/treesj"] = {
-	cmd = { "TSJJoin", "TSJSplit", "TSJToggle" },
-	config = require("editor.treesj"),
-	dependencies = { "nvim-treesitter/nvim-treesitter" },
-}
-editor["nvim-treesitter/playground"] = {
-	lazy = true,
-	cmd = "TSPlaygroundToggle",
-	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 
 return editor

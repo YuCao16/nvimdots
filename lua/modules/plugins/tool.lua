@@ -4,32 +4,28 @@ tool["tpope/vim-fugitive"] = {
 	lazy = true,
 	cmd = { "Git", "G" },
 }
-tool["nvim-neo-tree/neo-tree.nvim"] = {
+-- only for fcitx5 user who uses non-English language during coding
+-- tool["pysan3/fcitx5.nvim"] = {
+-- 	lazy = true,
+-- 	event = "BufReadPost",
+-- 	cond = vim.fn.executable("fcitx5-remote") == 1,
+-- 	config = require("tool.fcitx5"),
+-- }
+tool["nvim-tree/nvim-tree.lua"] = {
 	lazy = true,
-	cmd = { "Neotree" },
-	branch = "v3.x",
-	init = function()
-		vim.api.nvim_create_autocmd("BufEnter", {
-			desc = "Load NeoTree if entering a directory",
-			callback = function(args)
-				if vim.fn.isdirectory(vim.api.nvim_buf_get_name(args.buf)) > 0 then
-					require("lazy").load({ plugins = { "neo-tree.nvim" } })
-					vim.api.nvim_del_autocmd(args.id)
-				end
-			end,
-		})
-	end,
-	config = require("tool.neotree"),
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-		"MunifTanjim/nui.nvim",
-		{
-			"s1n7ax/nvim-window-picker",
-			version = "2.*",
-			config = require("tool.window_picker"),
-		},
+	cmd = {
+		"NvimTreeToggle",
+		"NvimTreeOpen",
+		"NvimTreeFindFile",
+		"NvimTreeFindFileToggle",
+		"NvimTreeRefresh",
 	},
+	config = require("tool.nvim-tree"),
+}
+tool["ibhagwan/smartyank.nvim"] = {
+	lazy = true,
+	event = "BufReadPost",
+	config = require("tool.smartyank"),
 }
 tool["michaelb/sniprun"] = {
 	lazy = true,
@@ -61,92 +57,11 @@ tool["folke/which-key.nvim"] = {
 	event = { "VeryLazy" },
 	config = require("tool.which-key"),
 }
-tool["yucao16/registers.nvim"] = {
-	lazy = true,
-	event = { "VeryLazy" },
-	config = function()
-		vim.g["registers_delay"] = 200
-		vim.g["registers_window_border"] = "rounded"
-		vim.g["system_clip"] = 1
-		vim.g["peekup_open"] = '"'
-	end,
-}
-tool["sidebar-nvim/sidebar.nvim"] = {
-	lazy = true,
-	cmd = { "SidebarNvimOpen", "SidebarNvimFocus", "SidebarNvimToggle" },
-	config = require("tool.sidebar"),
-}
-tool["NeogitOrg/neogit"] = {
-	lazy = true,
-	cmd = { "Neogit" },
-	config = require("tool.neogit_config"),
-}
-tool["folke/edgy.nvim"] = {
-	lazy = true,
-	event = { "VeryLazy" },
-	config = require("tool.edgy"),
-}
-tool["yucao16/vista.nvim"] = {
-	lazy = true,
-	event = { "LspAttach" },
-	cmd = { "VistaNvimOpen", "VistaNvimToggle", "VistaNvimToggle" },
-	branch = "vista.nvim-dev",
-	config = require("tool.vista"),
-}
-tool["JellyApple102/flote.nvim"] = {
-	lazy = true,
-	cmd = { "Flote" },
-	config = require("tool.flote"),
-}
-tool["danymat/neogen"] = {
-	lazy = true,
-	cmd = { "Neogen" },
-	dependencies = {
-		{ "nvim-treesitter/nvim-treesitter" },
-	},
-	config = true,
-}
-tool["neomake/neomake"] = {
-	lazy = true,
-	cmd = { "Neomake" },
-}
-tool["samjwill/nvim-unception"] = {
-	lazy = true,
-	event = { "TermOpen" },
-	config = require("tool.unception"),
-}
-tool["stevearc/oil.nvim"] = {
-	lazy = true,
-	cmd = "Oil",
-	config = require("tool.oil"),
-}
 tool["gelguy/wilder.nvim"] = {
 	lazy = true,
 	event = { "CmdlineEnter" },
 	config = require("tool.wilder"),
 	dependencies = "romgrk/fzy-lua-native",
-}
-tool["nvim-pack/nvim-spectre"] = {
-	lazy = true,
-	cmd = "Spectre",
-	conifg = true,
-	opts = { open_cmd = "noswapfile 50vnew" },
-}
-tool["m4xshen/hardtime.nvim"] = {
-	lazy = true,
-	cmd = { "Hardtime" },
-	config = function()
-		require("hardtime").setup({
-			notification = false,
-			hint = true,
-			disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil" },
-		})
-	end,
-}
-tool["jackMort/ChatGPT.nvim"] = {
-	lazy = true,
-	event = { "VeryLazy" },
-	config = true,
 }
 
 ----------------------------------------------------------------------
