@@ -31,39 +31,58 @@ return function()
 	end
 
 	local use_copilot = require("core.settings").use_copilot
-	local comparators = use_copilot == true
-			and {
-				require("copilot_cmp.comparators").prioritize,
-				require("copilot_cmp.comparators").score,
-				require("cmp_tabnine.compare"),
-				compare.offset, -- Items closer to cursor will have lower priority
-				compare.exact,
-				-- compare.scopes,
-				compare.lsp_scores,
-				compare.sort_text,
-				compare.score,
-				compare.recently_used,
-				-- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
-				require("cmp-under-comparator").under,
-				compare.kind,
-				compare.length,
-				compare.order,
-			}
-		or {
-			-- require("cmp_tabnine.compare"),
-			compare.offset, -- Items closer to cursor will have lower priority
+	local mode = require("core.settings").mode
+	local comparators
+	if use_copilot and mode ~= "server" then
+		comparators = {
+			require("copilot_cmp.comparators").prioritize,
+			require("copilot_cmp.comparators").score,
+			require("cmp_tabnine.compare"),
+			compare.offset,
 			compare.exact,
 			-- compare.scopes,
 			compare.lsp_scores,
 			compare.sort_text,
 			compare.score,
 			compare.recently_used,
-			-- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
+			-- compare.locality,
 			require("cmp-under-comparator").under,
 			compare.kind,
 			compare.length,
 			compare.order,
 		}
+	elseif mode == "server" then
+		comparators = {
+			require("copilot_cmp.comparators").prioritize,
+			require("copilot_cmp.comparators").score,
+			compare.offset,
+			compare.exact,
+			compare.lsp_scores,
+			compare.sort_text,
+			compare.score,
+			compare.recently_used,
+			require("cmp-under-comparator").under,
+			compare.kind,
+			compare.length,
+			compare.order,
+		}
+	else
+		comparators = {
+			-- require("cmp_tabnine.compare"),
+			compare.offset,
+			compare.exact,
+			-- compare.scopes,
+			compare.lsp_scores,
+			compare.sort_text,
+			compare.score,
+			compare.recently_used,
+			-- compare.locality,
+			require("cmp-under-comparator").under,
+			compare.kind,
+			compare.length,
+			compare.order,
+		}
+	end
 
 	local cmp = require("cmp")
 	require("modules.utils").load_plugin("cmp", {
