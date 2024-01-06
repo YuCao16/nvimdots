@@ -28,7 +28,6 @@ settings["disabled_plugins"] = {
 	"ojroques/nvim-bufdel",
 	"RRethy/vim-illuminate",
 	"romainl/vim-cool",
-	-- "nvimdev/lspsaga.nvim",
 	"stevearc/aerial.nvim",
 	"goolord/alpha-nvim",
 	"zbirenbaum/neodim",
@@ -36,5 +35,10 @@ settings["disabled_plugins"] = {
 	"edluffy/specs.nvim",
 	"nvim-tree/nvim-tree.lua",
 	"ibhagwan/smartyank.nvim",
+	"abecodes/tabout.nvim",
+	"NvChad/nvim-colorizer.lua",
+	"nvim-treesitter/nvim-treesitter-context",
+	"ahmedkhalf/project.nvim",
+	"hrsh7th/cmp-nvim-lua",
 }
 return settings

@@ -72,4 +72,41 @@ editor["nvim-treesitter/playground"] = {
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 
+----------------------------------------------------------------------
+--                  :treesitter related plugins                    --
+----------------------------------------------------------------------
+editor["nvim-treesitter/nvim-treesitter"] = {
+	lazy = true,
+	build = function()
+		if #vim.api.nvim_list_uis() ~= 0 then
+			vim.api.nvim_command([[TSUpdate]])
+		end
+	end,
+	event = { "BufReadPre" },
+	config = require("editor.treesitter"),
+	dependencies = {
+		{ "anuvyklack/pretty-fold.nvim" },
+		{ "RRethy/nvim-treesitter-endwise" },
+		{ "andymass/vim-matchup" },
+		{ "mfussenegger/nvim-treehopper" },
+		{ "nvim-treesitter/nvim-treesitter-textobjects" },
+		{
+			"windwp/nvim-ts-autotag",
+			config = require("editor.autotag"),
+		},
+		{
+			"hiphish/rainbow-delimiters.nvim",
+			config = require("editor.rainbow_delims"),
+		},
+		{
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			config = require("editor.ts-context-commentstring"),
+		},
+		{
+			"ziontee113/syntax-tree-surfer",
+			config = require("editor.tree-surfer"),
+		},
+	},
+}
+
 return editor

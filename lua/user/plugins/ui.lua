@@ -1,5 +1,13 @@
 local ui = {}
 
+ui["akinsho/bufferline.nvim"] = {
+	lazy = true,
+	event = { "BufReadPost", "BufAdd", "BufNewFile" },
+	config = require("ui.bufferline"),
+	dependencies = {
+		{ "tiagovla/scope.nvim" },
+	},
+}
 ui["folke/tokyonight.nvim"] = {
 	lazy = true,
 }

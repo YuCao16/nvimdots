@@ -110,4 +110,33 @@ tool["m4xshen/hardtime.nvim"] = {
 	end,
 }
 
+----------------------------------------------------------------------
+--                        Telescope Plugins                         --
+----------------------------------------------------------------------
+tool["nvim-telescope/telescope.nvim"] = {
+	lazy = true,
+	cmd = "Telescope",
+	config = require("tool.telescope"),
+	dependencies = {
+		{ "nvim-tree/nvim-web-devicons" },
+		{ "nvim-lua/plenary.nvim" },
+		{ "debugloop/telescope-undo.nvim" },
+		{ "LinArcX/telescope-env.nvim" },
+		{ "jvgrootveld/telescope-zoxide" },
+		{ "nvim-telescope/telescope-frecency.nvim" },
+		{ "nvim-telescope/telescope-live-grep-args.nvim" },
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "smartpde/telescope-recent-files" },
+		{ "crispgm/telescope-heading.nvim" },
+		{
+			"AckslD/nvim-neoclip.lua",
+			event = { "CmdlineEnter", "TextYankPost" },
+			config = require("tool.neoclip"),
+			dependencies = {
+				{ "kkharji/sqlite.lua" },
+			},
+		},
+	},
+}
+
 return tool

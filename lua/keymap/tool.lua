@@ -127,7 +127,9 @@ local plug_map = {
 	["n|<leader>S"] = map_cu("Telescope"):with_noremap():with_silent():with_desc("find: File by history"),
 	["n|<leader>so"] = map_cu("Telescope oldfiles"):with_noremap():with_silent():with_desc("find: File by history"),
 	["n|<leader>sf"] = map_cu("Telescope find_files"):with_noremap():with_silent():with_desc("find: File in project"),
-	["n|<leader>sc"] = map_cu("Telescope colorscheme")
+	["n|<leader>sc"] = map_callback(function()
+			require("telescope.builtin").colorscheme({ enable_preview = true })
+		end)
 		:with_noremap()
 		:with_silent()
 		:with_desc("ui: Change colorscheme for current session"),

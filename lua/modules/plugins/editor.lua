@@ -5,6 +5,20 @@ editor["rainbowhxch/accelerated-jk.nvim"] = {
 	event = "VeryLazy",
 	config = require("editor.accelerated-jk"),
 }
+editor["olimorris/persisted.nvim"] = {
+	lazy = true,
+	cmd = {
+		"SessionToggle",
+		"SessionStart",
+		"SessionStop",
+		"SessionSave",
+		"SessionLoad",
+		"SessionLoadLast",
+		"SessionLoadFromFile",
+		"SessionDelete",
+	},
+	config = require("editor.persisted"),
+}
 editor["m4xshen/autoclose.nvim"] = {
 	lazy = true,
 	event = "InsertEnter",
@@ -80,29 +94,35 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 			vim.api.nvim_command([[TSUpdate]])
 		end
 	end,
-	event = { "BufReadPre" },
+	event = "BufReadPre",
 	config = require("editor.treesitter"),
 	dependencies = {
-		{ "anuvyklack/pretty-fold.nvim" },
-		{ "RRethy/nvim-treesitter-endwise" },
 		{ "andymass/vim-matchup" },
 		{ "mfussenegger/nvim-treehopper" },
 		{ "nvim-treesitter/nvim-treesitter-textobjects" },
 		{
+			"abecodes/tabout.nvim",
+			config = require("editor.tabout"),
+		},
+		{
 			"windwp/nvim-ts-autotag",
 			config = require("editor.autotag"),
+		},
+		{
+			"NvChad/nvim-colorizer.lua",
+			config = require("editor.colorizer"),
 		},
 		{
 			"hiphish/rainbow-delimiters.nvim",
 			config = require("editor.rainbow_delims"),
 		},
 		{
-			"JoosepAlviste/nvim-ts-context-commentstring",
-			config = require("editor.ts-context-commentstring"),
+			"nvim-treesitter/nvim-treesitter-context",
+			config = require("editor.ts-context"),
 		},
 		{
-			"ziontee113/syntax-tree-surfer",
-			config = require("editor.tree-surfer"),
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			config = require("editor.ts-context-commentstring"),
 		},
 	},
 }
