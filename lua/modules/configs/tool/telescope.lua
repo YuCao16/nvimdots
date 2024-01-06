@@ -3,6 +3,7 @@ return function()
 	local lga_actions = require("telescope-live-grep-args.actions")
 	local actions = require("telescope.actions")
 	local action_state = require("telescope.actions.state")
+	local mode = require("core.settings").mode
 
 	local mm = { -- my mappings
 		["<CR>"] = function(pb)
@@ -99,15 +100,17 @@ return function()
 		},
 	})
 
-	require("telescope").load_extension("frecency")
-	require("telescope").load_extension("fzf")
-	require("telescope").load_extension("live_grep_args")
-	require("telescope").load_extension("notify")
-	require("telescope").load_extension("undo")
-	require("telescope").load_extension("zoxide")
-	require("telescope").load_extension("persisted")
-	require("telescope").load_extension("recent_files")
-	require("telescope").load_extension("heading")
-	require("telescope").load_extension("neoclip")
-	require("telescope").load_extension("env")
+	if mode ~= "server" then
+		require("telescope").load_extension("frecency")
+		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("live_grep_args")
+		require("telescope").load_extension("notify")
+		require("telescope").load_extension("undo")
+		require("telescope").load_extension("zoxide")
+		require("telescope").load_extension("persisted")
+		require("telescope").load_extension("recent_files")
+		require("telescope").load_extension("heading")
+		require("telescope").load_extension("neoclip")
+		require("telescope").load_extension("env")
+	end
 end

@@ -5,7 +5,7 @@ local settings = {}
 settings["colorscheme"] = "onedark"
 
 -- Mode
-settings["mode"] = "full"
+settings["mode"] = "server"
 
 -- Set to cmp menu max width
 ---@type number
@@ -28,6 +28,23 @@ local full_lsp_deps = {
 	"pyright",
 	"jedi_language_server",
 	"gopls",
+}
+
+local server_null_ls_deps = {
+	"prettier",
+	"stylua",
+	"black",
+	"ruff",
+}
+
+local full_null_ls_deps = {
+	"clang_format",
+	"gofumpt",
+	"goimports",
+	"prettier",
+	"shfmt",
+	"stylua",
+	"vint",
 }
 
 local base_disabled_plugins = {
@@ -53,7 +70,6 @@ local base_disabled_plugins = {
 }
 local server_specific_plugins = {
 	"dnlhc/glance.nvim",
-	"saadparwaiz1/cmp_luasnip",
 	"hrsh7th/cmp-nvim-lua",
 	"andersevenrud/cmp-tmux",
 	"f3fora/cmp-spell",
@@ -88,6 +104,7 @@ local server_specific_plugins = {
 	"folke/tokyonight.nvim",
 	"uga-rosa/ccc.nvim",
 	"AckslD/nvim-neoclip.lua",
+	"jackMort/ChatGPT.nvim",
 }
 
 local function merge_lists(base_list, additional_list)
@@ -124,5 +141,6 @@ end
 settings.disabled_plugins =
 	update_settings_for_mode(settings.mode, base_disabled_plugins, server_specific_plugins, "merge")
 settings.lsp_deps = update_settings_for_mode(settings.mode, full_lsp_deps, server_lsp_deps, "use-specific")
+settings.null_ls_deps = update_settings_for_mode(settings.mode, full_null_ls_deps, server_null_ls_deps, "use-specific")
 
 return settings
