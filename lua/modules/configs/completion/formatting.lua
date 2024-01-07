@@ -13,7 +13,7 @@ end, {})
 
 vim.api.nvim_create_user_command("Format", function()
 	require("completion.formatting").format({
-		timeout_ms = 1000,
+		timeout_ms = 2500,
 		filter = M.format_filter,
 	})
 end, {})
