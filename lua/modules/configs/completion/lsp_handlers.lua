@@ -125,6 +125,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.completionProvider = false
 		client.server_capabilities.referencesProvider = false
 		client.server_capabilities.definitionProvider = false
+		client.server_capabilities.documentHighlightProvider = false
 	elseif client.name == "sourcery" then
 		client.server_capabilities.hoverProvider = false
 	elseif client.name == "clangd" then
