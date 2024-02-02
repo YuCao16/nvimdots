@@ -27,33 +27,6 @@ return function()
 		end
 	end
 
-	local function ruff_fix()
-		return helpers.make_builtin({
-			name = "ruff",
-			meta = {
-				url = "https://github.com/charliermarsh/ruff/",
-				description = "An extremely fast Python linter, written in Rust.",
-			},
-			method = methods.internal.FORMATTING,
-			filetypes = { "python" },
-			generator_opts = {
-				command = "ruff",
-				args = {
-					"--fix",
-					"-e",
-					"-n",
-					"--stdin-filename",
-					"$FILENAME",
-					"--unfixable F401",
-					-- "--unfixable I001",
-					"-",
-				},
-				to_stdin = true,
-			},
-			factory = helpers.formatter_factory,
-		})
-	end
-
 	-- Please set additional flags for the supported servers here
 	-- Don't specify any config here if you are using the default one.
 	local sources = {
@@ -86,14 +59,10 @@ return function()
 		btns.formatting.mdformat,
 
 		-- Python
-		btns.formatting.black.with({
+		btns.formatting.ruff_format.with({
 			extra_args = { "--line-length=80" },
-			condition = is_executable("black"),
+			condition = is_executable("ruff"),
 		}),
-		-- null_ls.builtins.diagnostics.vulture.with({
-		--     condition = is_executable("black"),
-		-- }),
-		ruff_fix(),
 		btns.diagnostics.ruff.with({
 			extra_args = {
 				"--ignore=E501",
