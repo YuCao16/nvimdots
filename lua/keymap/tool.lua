@@ -25,7 +25,7 @@ local plug_map = {
 	["n|<leader>G"] = map_cu("Git"):with_noremap():with_silent():with_desc("git: Open git-fugitive"),
 
 	-- Plugin: neo-tree
-	["n|<leader>q"] = map_cmd("<Cmd>Neotree<cr>"):with_noremap():with_silent():with_desc("filetree: Toggle"),
+	["n|<leader>q"] = map_cmd("<Cmd>Neotree filesystem left<cr>"):with_noremap():with_silent():with_desc("filetree: Toggle"),
 
 	-- Plugin: vista
 	["n|<leader>;"] = map_callback(handle_vista):with_noremap():with_silent():with_desc("tool: Run code by range"),

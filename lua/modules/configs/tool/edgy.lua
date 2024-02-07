@@ -54,8 +54,9 @@ return function()
 			{
 				title = "Neo-Tree",
 				ft = "neo-tree",
-				filter = function(buf)
+				filter = function(buf, win)
 					return vim.b[buf].neo_tree_source == "filesystem"
+						and vim.api.nvim_win_get_config(win).relative == ""
 				end,
 				size = { height = 0.5 },
 			},
