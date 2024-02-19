@@ -68,7 +68,7 @@ local base_disabled_plugins = {
 	"hrsh7th/cmp-nvim-lua",
 }
 local server_specific_plugins = {
-	"dnlhc/glance.nvim",
+	"LunarVim/bigfile.nvim",
 	"hrsh7th/cmp-nvim-lua",
 	"andersevenrud/cmp-tmux",
 	"f3fora/cmp-spell",
