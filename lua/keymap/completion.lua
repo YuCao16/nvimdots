@@ -37,6 +37,8 @@ function mapping.lsp(buf)
 		["n|<leader>gi"] = map_cr("Lspsaga incoming_calls"):with_buffer(buf):with_desc("lsp: Show incoming calls"),
 		["n|<leader>go"] = map_cr("Lspsaga outgoing_calls"):with_buffer(buf):with_desc("lsp: Show outgoing calls"),
 		["n|<leader>ca"] = map_cr("Lspsaga code_action"):with_buffer(buf):with_desc("lsp: Code action for cursor"),
+		["n|<leader>gd"] = map_cr("Glance definitions"):with_buffer(buf):with_desc("lsp: Show Definitions"),
+		["n|<leader>gr"] = map_cr("Glance references"):with_buffer(buf):with_desc("lsp: Show References"),
 		["n|<leader>ld"] = map_cr("Lspsaga show_line_diagnostics ++unfocus")
 			:with_buffer(buf)
 			:with_desc("lsp: Line diagnostic"),
