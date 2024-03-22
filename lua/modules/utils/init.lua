@@ -48,6 +48,9 @@ local function init_palette()
 			callback = function()
 				palette = nil
 				init_palette()
+				-- Also refresh hard-coded hl groups
+				M.gen_lspkind_hl()
+				pcall(vim.cmd.AlphaRedraw)
 			end,
 		})
 	end
@@ -92,9 +95,23 @@ local function init_palette()
 end
 
 ---@param c string @The color in hexadecimal.
-local function hexToRgb(c)
+local function hex_To_Rgb(c)
 	c = string.lower(c)
 	return { tonumber(c:sub(2, 3), 16), tonumber(c:sub(4, 5), 16), tonumber(c:sub(6, 7), 16) }
+end
+-- NOTE: If the active colorscheme isn't `catppuccin`, this function won't overwrite existing definitions
+---Sets a global highlight group.
+---@param name string @Highlight group name, e.g. "ErrorMsg"
+---@param foreground string @The foreground color
+---@param background? string @The background color
+---@param italic? boolean
+local function set_global_hl(name, foreground, background, italic)
+	vim.api.nvim_set_hl(0, name, {
+		fg = foreground,
+		bg = background,
+		italic = italic == true,
+		default = not vim.g.colors_name:find("catppuccin"),
+	})
 end
 
 ---Blend foreground with background
@@ -104,15 +121,15 @@ end
 function M.blend(foreground, background, alpha)
 	---@diagnostic disable-next-line: cast-local-type
 	alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
-	local bg = hexToRgb(background)
-	local fg = hexToRgb(foreground)
+	local bg = hex_To_Rgb(background)
+	local fg = hex_To_Rgb(foreground)
 
-	local blendChannel = function(i)
+	local blend_Channel = function(i)
 		local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
 		return math.floor(math.min(math.max(0, ret), 255) + 0.5)
 	end
 
-	return string.format("#%02x%02x%02x", blendChannel(1), blendChannel(2), blendChannel(3))
+	return string.format("#%02x%02x%02x", blend_Channel(1), blend_Channel(2), blend_Channel(3))
 end
 
 ---Get RGB highlight by highlight group
@@ -156,7 +173,7 @@ end
 ---@return palette
 function M.get_palette(overwrite)
 	if not overwrite then
-		return init_palette()
+		return vim.deepcopy(init_palette())
 	else
 		return vim.tbl_extend("force", init_palette(), overwrite)
 	end
@@ -203,7 +220,7 @@ function M.gen_lspkind_hl()
 	}
 
 	for kind, color in pairs(dat) do
-		vim.api.nvim_set_hl(0, "LspKind" .. kind, { fg = color, default = true })
+		set_global_hl("LspKind" .. kind, color)
 	end
 end
 

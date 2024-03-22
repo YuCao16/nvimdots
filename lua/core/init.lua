@@ -26,7 +26,7 @@ local disable_distribution_plugins = function()
 	vim.g.did_install_default_menus = 1
 	vim.g.did_install_syntax_menu = 1
 
-	-- comment this if you define your own filetypes in `after/ftplugin`
+	-- Uncomment this if you define your own filetypes in `after/ftplugin`
 	-- vim.g.did_load_filetypes = 1
 
 	-- Do not load native syntax completion
@@ -84,7 +84,7 @@ local gui_config = function()
 end
 
 local neovide_config = function()
-	for name, config in pairs(settings.neovide_config) do
+	for name, config in ipairs(settings.neovide_config) do
 		vim.g["neovide_" .. name] = config
 	end
 end
@@ -153,10 +153,10 @@ local load_core = function()
 
 	require("core.options")
 	require("core.mapping")
-	require("keymap")
 	require("core.event")
 	require("core.command")
 	require("core.pack")
+	require("keymap")
 
 	local colorscheme = settings.colorscheme
 	local background = settings.background

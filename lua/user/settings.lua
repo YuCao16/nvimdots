@@ -5,7 +5,7 @@ local settings = {}
 settings["colorscheme"] = "onedark"
 
 -- Mode
-settings["mode"] = "server"
+settings["mode"] = "full"
 
 -- Set to cmp menu max width
 ---@type number
@@ -48,11 +48,9 @@ local full_null_ls_deps = {
 
 local base_disabled_plugins = {
 	"fatih/vim-go",
-	"rainbowhxch/accelerated-jk.nvim",
 	"m4xshen/autoclose.nvim",
 	"max397574/better-escape.nvim",
 	"ojroques/nvim-bufdel",
-	"RRethy/vim-illuminate",
 	"romainl/vim-cool",
 	"stevearc/aerial.nvim",
 	"goolord/alpha-nvim",
@@ -61,11 +59,11 @@ local base_disabled_plugins = {
 	"edluffy/specs.nvim",
 	"nvim-tree/nvim-tree.lua",
 	"ibhagwan/smartyank.nvim",
-	"abecodes/tabout.nvim",
 	"NvChad/nvim-colorizer.lua",
 	"nvim-treesitter/nvim-treesitter-context",
 	"ahmedkhalf/project.nvim",
 	"hrsh7th/cmp-nvim-lua",
+	"tzachar/local-highlight.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",
@@ -104,6 +102,7 @@ local server_specific_plugins = {
 	"uga-rosa/ccc.nvim",
 	"AckslD/nvim-neoclip.lua",
 	"jackMort/ChatGPT.nvim",
+	"tzachar/local-highlight.nvim",
 }
 
 local function merge_lists(base_list, additional_list)

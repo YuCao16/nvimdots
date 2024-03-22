@@ -52,12 +52,6 @@ tool["neomake/neomake"] = {
 	lazy = true,
 	cmd = { "Neomake" },
 }
-tool["nvim-pack/nvim-spectre"] = {
-	lazy = true,
-	cmd = "Spectre",
-	conifg = true,
-	opts = { open_cmd = "noswapfile 50vnew" },
-}
 tool["JellyApple102/flote.nvim"] = {
 	lazy = true,
 	cmd = { "Flote" },

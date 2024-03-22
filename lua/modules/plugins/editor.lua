@@ -1,10 +1,5 @@
 local editor = {}
 
-editor["rainbowhxch/accelerated-jk.nvim"] = {
-	lazy = true,
-	event = "VeryLazy",
-	config = require("editor.accelerated-jk"),
-}
 editor["olimorris/persisted.nvim"] = {
 	lazy = true,
 	cmd = {
@@ -59,9 +54,9 @@ editor["sindrets/diffview.nvim"] = {
 	lazy = true,
 	cmd = { "DiffviewOpen", "DiffviewClose" },
 }
-editor["junegunn/vim-easy-align"] = {
-	lazy = true,
-	cmd = { "EasyAlign" },
+editor["echasnovski/mini.align"] = {
+	version = false,
+	config = require("editor.mini-align"),
 }
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
@@ -69,10 +64,10 @@ editor["smoka7/hop.nvim"] = {
 	cmd = { "HopWord" },
 	config = require("editor.hop"),
 }
-editor["RRethy/vim-illuminate"] = {
+editor["tzachar/local-highlight.nvim"] = {
 	lazy = true,
 	event = { "CursorHold", "CursorHoldI" },
-	config = require("editor.vim-illuminate"),
+	config = require("editor.local-highlight"),
 }
 editor["romainl/vim-cool"] = {
 	lazy = true,
@@ -82,6 +77,12 @@ editor["lambdalisue/suda.vim"] = {
 	lazy = true,
 	cmd = { "SudaRead", "SudaWrite" },
 	config = require("editor.suda"),
+}
+editor["nvim-pack/nvim-spectre"] = {
+	lazy = true,
+	cmd = "Spectre",
+	conifg = true,
+	opts = { open_cmd = "noswapfile 50vnew" },
 }
 
 ----------------------------------------------------------------------
@@ -100,10 +101,6 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 		{ "andymass/vim-matchup" },
 		{ "mfussenegger/nvim-treehopper" },
 		{ "nvim-treesitter/nvim-treesitter-textobjects" },
-		{
-			"abecodes/tabout.nvim",
-			config = require("editor.tabout"),
-		},
 		{
 			"windwp/nvim-ts-autotag",
 			config = require("editor.autotag"),

@@ -6,10 +6,11 @@ lang["fatih/vim-go"] = {
 	build = ":GoInstallBinaries",
 	config = require("lang.vim-go"),
 }
-lang["simrat39/rust-tools.nvim"] = {
+lang["mrcjkb/rustaceanvim"] = {
 	lazy = true,
 	ft = "rust",
-	config = require("lang.rust-tools"),
+	version = "^3",
+	config = require("lang.rust"),
 	dependencies = { "nvim-lua/plenary.nvim" },
 }
 lang["Saecki/crates.nvim"] = {
@@ -26,5 +27,13 @@ lang["iamcco/markdown-preview.nvim"] = {
 lang["chrisbra/csv.vim"] = {
 	lazy = true,
 	ft = "csv",
+}
+lang["kevinhwang91/nvim-bqf"] = {
+	lazy = true,
+	ft = "qf",
+	config = require("lang.bqf"),
+	dependencies = {
+		{ "junegunn/fzf", build = ":call fzf#install()" },
+	},
 }
 return lang

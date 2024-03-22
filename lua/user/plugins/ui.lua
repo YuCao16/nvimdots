@@ -32,11 +32,6 @@ ui["itchyny/vim-highlighturl"] = {
 		vim.g.highlighturl_guifg = "#8AB4F8"
 	end,
 }
-ui["kevinhwang91/nvim-bqf"] = {
-	lazy = true,
-	config = true,
-	ft = { "qf" },
-}
 ui["dvoytik/hi-my-words.nvim"] = {
 	lazy = true,
 	config = true,
