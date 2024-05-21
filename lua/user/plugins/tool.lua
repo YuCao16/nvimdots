@@ -72,7 +72,6 @@ tool["folke/edgy.nvim"] = {
 }
 tool["yucao16/vista.nvim"] = {
 	lazy = true,
-	event = { "LspAttach" },
 	cmd = { "VistaNvimOpen", "VistaNvimToggle", "VistaNvimToggle" },
 	branch = "vista.nvim-dev",
 	config = require("tool.vista"),

@@ -37,7 +37,7 @@ return function()
 		comparators = {
 			require("copilot_cmp.comparators").prioritize,
 			require("copilot_cmp.comparators").score,
-			require("cmp_tabnine.compare"),
+			-- require("cmp_tabnine.compare"),
 			compare.offset,
 			compare.exact,
 			-- compare.scopes,
@@ -195,10 +195,17 @@ return function()
 			{ name = "spell" },
 			{ name = "tmux" },
 			{ name = "orgmode" },
-			{ name = "buffer" },
+			{
+				name = "buffer",
+				option = {
+					get_bufnrs = function()
+						return vim.api.nvim_list_bufs()
+					end,
+				},
+			},
 			{ name = "latex_symbols", priority = 9 },
 			{ name = "copilot" },
-			{ name = "cmp_tabnine" },
+			-- { name = "cmp_tabnine" },
 			{ name = "codeium" },
 		},
 		experimental = {

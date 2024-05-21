@@ -30,14 +30,6 @@ editor["famiu/bufdelete.nvim"] = {
 	lazy = true,
 	event = { "BufReadPost" },
 }
-editor["folke/todo-comments.nvim"] = {
-	lazy = true,
-	cmd = { "TodoTrouble", "TodoTelescope", "TodoLocList", "TodoQuickFix" },
-	config = true,
-	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
-	},
-}
 editor["SmiteshP/nvim-navic"] = {
 	lazy = true,
 	event = { "BufReadPost" },

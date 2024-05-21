@@ -58,12 +58,12 @@ local base_disabled_plugins = {
 	"dstein64/nvim-scrollview",
 	"edluffy/specs.nvim",
 	"nvim-tree/nvim-tree.lua",
-	"ibhagwan/smartyank.nvim",
 	"NvChad/nvim-colorizer.lua",
 	"nvim-treesitter/nvim-treesitter-context",
 	"ahmedkhalf/project.nvim",
 	"hrsh7th/cmp-nvim-lua",
 	"tzachar/local-highlight.nvim",
+	"ibhagwan/smartyank.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",
@@ -103,6 +103,11 @@ local server_specific_plugins = {
 	"AckslD/nvim-neoclip.lua",
 	"jackMort/ChatGPT.nvim",
 	"tzachar/local-highlight.nvim",
+	"echasnovski/mini.align",
+	"karb94/neoscroll.nvim",
+	"kylechui/nvim-surround",
+	"folke/paint.nvim",
+	"mrjones2014/smart-splits.nvim",
 }
 
 local function merge_lists(base_list, additional_list)

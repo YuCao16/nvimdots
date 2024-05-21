@@ -3,7 +3,7 @@ return function()
 		style = "darker",
 		highlights = {
 			-- For native lsp configs
-			-- MatchParen = { bg = "#727169" },
+			MatchParen = { bg = "#727169" },
 			Search = { bg = "#99D1DB", fg = "#282c34", ctermfg = 0, ctermbg = 11 },
 			IncSearch = { bg = "#99D1DB", fg = "#282c34", ctermfg = 0, ctermbg = 11 },
 			CurSearch = { bg = "#99D1DB", fg = "#282c34", ctermfg = 0, ctermbg = 11 },
@@ -17,7 +17,8 @@ return function()
 			ColorColumn = { bg = "#323641" },
 			FloatBorder = { bg = "none", fg = "#c8c093" },
 			NormalFloat = { bg = "none", fg = "none" },
-			Winbar = { fg = "#9095a2" },
+			WinBar = { fg = "#9095a2", bg = "none" },
+			WinBarNC = { bg = "none" },
 			Conceal = { fg = "#abb2bf", bg = "#282C34" },
 			VertSplit = { cterm = "bold", gui = "bold", fg = "#50585b" },
 			WinSeparator = { link = "VertSplit" },

@@ -55,8 +55,9 @@ editor["sindrets/diffview.nvim"] = {
 	cmd = { "DiffviewOpen", "DiffviewClose" },
 }
 editor["echasnovski/mini.align"] = {
-	version = false,
-	config = require("editor.mini-align"),
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("editor.align"),
 }
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
@@ -76,13 +77,18 @@ editor["romainl/vim-cool"] = {
 editor["lambdalisue/suda.vim"] = {
 	lazy = true,
 	cmd = { "SudaRead", "SudaWrite" },
-	config = require("editor.suda"),
+	init = require("editor.suda"),
 }
 editor["nvim-pack/nvim-spectre"] = {
 	lazy = true,
 	cmd = "Spectre",
 	conifg = true,
 	opts = { open_cmd = "noswapfile 50vnew" },
+}
+editor["mrjones2014/smart-splits.nvim"] = {
+	lazy = true,
+	event = { "CursorHoldI", "CursorHold" },
+	config = require("editor.splits"),
 }
 
 ----------------------------------------------------------------------

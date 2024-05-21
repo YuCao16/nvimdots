@@ -64,9 +64,6 @@ M.make_capabilities = function()
 end
 
 M.on_attach = function(client, bufnr)
-	-- general
-	client.config.flags.allow_incremental_sync = true
-
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- autocmd
