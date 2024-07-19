@@ -1,7 +1,5 @@
 return function()
 	local null_ls = require("null-ls")
-	local methods = require("null-ls.methods")
-	local helpers = require("null-ls.helpers")
 
 	local btns = null_ls.builtins
 
@@ -50,47 +48,14 @@ return function()
 			},
 		}),
 		btns.formatting.rustfmt,
-		-- Markdown
 		btns.diagnostics.markdownlint.with({
 			extra_args = { "--disable=line_length" },
 			condition = is_executable("markdownlint"),
 		}),
 		btns.diagnostics.alex,
 		btns.formatting.mdformat,
-
-		-- Python
-		btns.formatting.ruff_format.with({
-			extra_args = { "--line-length=80" },
-			condition = is_executable("ruff"),
-		}),
-		btns.diagnostics.ruff.with({
-			extra_args = {
-				"--ignore=E501",
-				"--ignore=E402",
-				"--ignore=B905",
-				"--ignore=N803",
-				"--ignore=N802",
-				"--ignore=N806",
-				"--ignore=N816",
-				"--select=I",
-				"--select=A",
-				"--select=ANN",
-				"--select=B",
-				-- "--select=D",
-				"--select=N",
-				-- "--select=PD",
-				"--select=C90",
-				"--ignore=ANN101",
-				"--ignore=ANN401",
-				"--ignore=N812",
-				"--ignore=F405",
-				"--ignore=F401",
-				"--ignore=I001",
-				-- "--extend-ignore=ANN",
-			},
-			condition = is_executable("ruff"),
-		}),
 	}
+
 	require("modules.utils").load_plugin("null-ls", {
 		border = "rounded",
 		debug = false,
