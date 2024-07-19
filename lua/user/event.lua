@@ -39,7 +39,7 @@ vim.api.nvim_create_user_command("DiffOrigClose", function()
 	local windows = vim.api.nvim_list_wins()
 	for _, win in ipairs(windows) do
 		local buf = vim.api.nvim_win_get_buf(win)
-		if vim.api.nvim_buf_get_option(buf, "buftype") == "nofile" then
+		if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "nofile" then
 			vim.api.nvim_win_close(win, false)
 		end
 	end
@@ -53,7 +53,7 @@ vim.api.nvim_create_user_command("Diffthis", function()
 	local current_buffer = vim.api.nvim_get_current_buf()
 	local current_ft = vim.bo.filetype
 	local scratch_buffer = vim.api.nvim_create_buf(true, true)
-	vim.api.nvim_buf_set_option(scratch_buffer, "filetype", current_ft)
+	vim.api.nvim_set_option_value("filetype", current_ft, { buf = scratch_buffer })
 	vim.api.nvim_win_set_buf(_G.orig_win_id, scratch_buffer)
 	vim.cmd("read ++edit #")
 	vim.cmd('normal! gg0"_dd')
@@ -69,7 +69,7 @@ vim.api.nvim_create_user_command("Diffoff", function()
 	end
 	local buffers = vim.api.nvim_list_bufs()
 	for _, buf in ipairs(buffers) do
-		if vim.api.nvim_buf_get_option(buf, "buftype") == "nofile" then
+		if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "nofile" then
 			vim.api.nvim_buf_delete(buf, { force = true })
 		end
 	end

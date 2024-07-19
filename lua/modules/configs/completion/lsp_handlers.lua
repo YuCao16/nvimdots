@@ -64,7 +64,7 @@ M.make_capabilities = function()
 end
 
 M.on_attach = function(client, bufnr)
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
 	-- autocmd
 	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
@@ -116,6 +116,8 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.signatureHelpProvider = false
 	elseif client.name == "pylyzer" then
 		client.server_capabilities.hoverProvider = false
+	elseif client.name == "ruff" then
+		client.server_capabilities.documentFormattingProvider = false
 	elseif client.name == "jedi_language_server" then
 		-- client.server_capabilities.documentSymbolProvider = false
 		client.server_capabilities.codeActionProvider = false

@@ -12,14 +12,14 @@ local mapping = {}
 local hide_diagnostic = function()
 	if vim.g.diagnostics_active then
 		vim.g.diagnostics_active = false
-		vim.diagnostic.disable()
+		vim.diagnostic.enable(false)
 	else
 		vim.g.diagnostics_active = true
 		vim.diagnostic.enable()
 	end
 end
 local run_code = function(buf)
-	local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+	local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
 	if filetype == "rust" then
 		require("rust-tools").hover_actions.hover_actions()
 	elseif filetype == "python" then

@@ -15,7 +15,7 @@ local latex_auto_end = function()
 	vim.cmd("stopinsert")
 
 	-- Get the current line and cursor position
-	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local row, col = table.unpack(vim.api.nvim_win_get_cursor(0))
 	local line = vim.api.nvim_get_current_line()
 
 	-- Find the start and end of the \begin{...} tag

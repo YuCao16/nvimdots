@@ -15,14 +15,14 @@ return function()
 
 			local is_floating = vim.api.nvim_win_get_config(winid).relative ~= ""
 
-			local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+			local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 			local exclude_filetype = {
 				TelescopePrompt = true,
 				lspsagafinder = true,
 				[""] = true,
 			}
 
-			local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
+			local buftype = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
 			local exclude_buftype = {
 				terminal = true,
 				prompt = true,

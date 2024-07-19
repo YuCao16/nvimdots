@@ -19,7 +19,7 @@ return vim.schedule_wrap(function()
 			enable = true,
 			disable = function(_, bufnr)
 				local buf_name = vim.api.nvim_buf_get_name(bufnr)
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				local disable_type = { "org", "tex", "latex" }
 				if table_contains(disable_type, filetype) then
 					return true
@@ -65,20 +65,7 @@ return vim.schedule_wrap(function()
 			enable = true,
 			disable = function(_, bufnr)
 				local disable_type = {}
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
-				if table_contains(disable_type, filetype) then
-					return true
-				end
-				local buf_name = vim.api.nvim_buf_get_name(bufnr)
-				local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-				return file_size > 256 * 1024
-			end,
-		},
-		autotag = {
-			enable = true,
-			disable = function(_, bufnr)
-				local disable_type = { "python" }
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				if table_contains(disable_type, filetype) then
 					return true
 				end
@@ -91,7 +78,7 @@ return vim.schedule_wrap(function()
 			enable = true,
 			disable = function(_, bufnr)
 				local disable_type = {}
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				if table_contains(disable_type, filetype) then
 					return true
 				end
@@ -118,7 +105,7 @@ return vim.schedule_wrap(function()
 			enable = true,
 			disable = function(_, bufnr)
 				local disable_type = { "lua" }
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				if table_contains(disable_type, filetype) then
 					return true
 				end
@@ -131,7 +118,7 @@ return vim.schedule_wrap(function()
 			enable = false,
 			disable = function(_, bufnr)
 				local disable_type = {}
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				if table_contains(disable_type, filetype) then
 					return true
 				end
@@ -146,7 +133,7 @@ return vim.schedule_wrap(function()
 			enable = true,
 			disable = function(_, bufnr)
 				local disable_type = { "python" }
-				local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 				if table_contains(disable_type, filetype) then
 					return true
 				end

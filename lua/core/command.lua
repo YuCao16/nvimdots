@@ -15,14 +15,16 @@ function command_to_buffer(command, bufname)
 	local buf = vim.api.nvim_create_buf(true, true)
 
 	-- Execute the command and capture its output
-	local ok, result = pcall(vim.api.nvim_exec, command, true)
+	local ok, result = pcall(function()
+		return vim.api.nvim_exec2(command, { output = true })
+	end, true)
 	if not ok then
 		print("Error executing command: " .. result)
 		return
 	end
 
 	-- Split the output by newline and put it in the buffer
-	local output = vim.split(result, "\n")
+	local output = vim.split(result.output, "\n")
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
 	vim.api.nvim_buf_set_name(buf, bufname)
 
