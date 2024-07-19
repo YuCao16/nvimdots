@@ -92,11 +92,6 @@ lang["AckslD/swenv.nvim"] = {
 	ft = "python",
 	config = require("lang.swenv"),
 }
-lang["folke/neodev.nvim"] = {
-	lazy = true,
-	ft = "lua",
-	config = require("lang.neodev_config"),
-}
 lang["CRAG666/code_runner.nvim"] = {
 	lazy = true,
 	config = require("lang.code_runner"),

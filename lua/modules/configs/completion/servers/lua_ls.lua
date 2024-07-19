@@ -14,7 +14,6 @@ return {
 				library = {
 					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					[vim.fn.stdpath("data") .. "/site/lazy/neodev.nvim/types"] = true,
 					["${3rd}/luv/library"] = true,
 				},
 				maxPreload = 100000,
