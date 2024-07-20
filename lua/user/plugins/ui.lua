@@ -50,7 +50,7 @@ ui["stevearc/dressing.nvim"] = {
 ui["uga-rosa/ccc.nvim"] = {
 	lazy = true,
 	cmd = { "CCCPick", "CCCHighlighterToggle", "CCCHighlighterEnable", "CCCHighlighterDisable" },
-	ft = { "lua" },
+	ft = { "lua", "toml" },
 	config = require("ui.ccc_config"),
 }
 ui["machakann/vim-highlightedyank"] = {
