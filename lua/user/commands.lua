@@ -1,4 +1,5 @@
 local bufnames = {}
+
 function command_to_buffer(command, bufname)
 	bufname = bufname or "Record"
 	-- Check if a buffer with this name already exists
@@ -31,6 +32,7 @@ function command_to_buffer(command, bufname)
 	-- Switch to the new buffer in the current window
 	vim.api.nvim_set_current_buf(buf)
 end
+
 vim.api.nvim_command("command! -nargs=* Record lua command_to_buffer(<f-args>)")
 
 vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
