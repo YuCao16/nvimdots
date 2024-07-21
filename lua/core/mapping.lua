@@ -6,12 +6,6 @@ local map_callback = bind.map_callback
 
 local core_map = {
 	-- Suckless
-	["n|<leader>9"] = map_cr([[execute 'source '.bufname('%')]])
-		:with_noremap()
-		:with_silent()
-		:with_desc("source current buffer"),
-	["n|<leader>w"] = map_cmd("<C-w>"):with_noremap():with_silent():with_desc("toggle wincmd"),
-	["n|<leader>f"] = map_cr("Format"):with_noremap():with_silent():with_desc("toggle Format"),
 	["n|<S-Tab>"] = map_cr("normal za"):with_noremap():with_silent():with_desc("edit: Toggle code fold"),
 	["n|<C-s>"] = map_cu("write"):with_noremap():with_silent():with_desc("edit: Save file"),
 	["n|Y"] = map_cmd("y$"):with_desc("edit: Yank text to EOL"),
@@ -27,19 +21,20 @@ local core_map = {
 		:with_desc("edit: Clear search highlight"),
 	["n|<C-h>"] = map_cmd("<C-w>h"):with_noremap():with_desc("window: Focus left"),
 	["n|<C-l>"] = map_cmd("<C-w>l"):with_noremap():with_desc("window: Focus right"),
-	-- ["n|<C-j>"] = map_cmd("<C-w>j"):with_noremap():with_desc("window: Focus down"),
-	-- ["n|<C-k>"] = map_cmd("<C-w>k"):with_noremap():with_desc("window: Focus up"),
+	["n|<C-j>"] = map_cmd("<C-w>j"):with_noremap():with_desc("window: Focus down"),
+	["n|<C-k>"] = map_cmd("<C-w>k"):with_noremap():with_desc("window: Focus up"),
 	["t|<C-w>h"] = map_cmd("<Cmd>wincmd h<CR>"):with_silent():with_noremap():with_desc("window: Focus left"),
 	["t|<C-w>l"] = map_cmd("<Cmd>wincmd l<CR>"):with_silent():with_noremap():with_desc("window: Focus right"),
 	["t|<C-w>j"] = map_cmd("<Cmd>wincmd j<CR>"):with_silent():with_noremap():with_desc("window: Focus down"),
 	["t|<C-w>k"] = map_cmd("<Cmd>wincmd k<CR>"):with_silent():with_noremap():with_desc("window: Focus up"),
-	["n|<S-H>"] = map_cr("vertical resize -1"):with_silent():with_desc("window: Resize -5 vertically"),
-	["n|<S-L>"] = map_cr("vertical resize +1"):with_silent():with_desc("window: Resize +5 vertically"),
-	["n|<c-j>"] = map_cr("resize -1"):with_silent():with_desc("window: Resize -2 horizontally"),
-	["n|<c-k>"] = map_cr("resize +1"):with_silent():with_desc("window: Resize +2 horizontally"),
+	["n|<A-h>"] = map_cr("vertical resize -3"):with_silent():with_desc("window: Resize -3 vertically"),
+	["n|<A-l>"] = map_cr("vertical resize +3"):with_silent():with_desc("window: Resize +3 vertically"),
+	["n|<A-j>"] = map_cr("resize -3"):with_silent():with_desc("window: Resize -3 horizontally"),
+	["n|<A-k>"] = map_cr("resize +3"):with_silent():with_desc("window: Resize +3 horizontally"),
 	["n|<C-q>"] = map_cr("wq"):with_desc("edit: Save file and quit"),
 	["n|<A-S-q>"] = map_cr("q!"):with_desc("edit: Force quit"),
 	["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"):with_desc("edit: Toggle spell check"),
+	["n|<leader>bn"] = map_cu("enew"):with_noremap():with_silent():with_desc("buffer: New"),
 	["n|tn"] = map_cr("tabnew"):with_noremap():with_silent():with_desc("tab: Create a new tab"),
 	["n|tk"] = map_cr("tabnext"):with_noremap():with_silent():with_desc("tab: Move to next tab"),
 	["n|tj"] = map_cr("tabprevious"):with_noremap():with_silent():with_desc("tab: Move to previous tab"),
@@ -66,4 +61,5 @@ local core_map = {
 	["v|<"] = map_cmd("<gv"):with_desc("edit: Decrease indent"),
 	["v|>"] = map_cmd(">gv"):with_desc("edit: Increase indent"),
 }
+
 bind.nvim_load_mapping(core_map)

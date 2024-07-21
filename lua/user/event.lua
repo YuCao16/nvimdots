@@ -1,7 +1,14 @@
 local definitions = {
-	-- Example
-	bufs = {
-		{ "BufWritePre", "COMMIT_EDITMSG", "setlocal noundofile" },
+	-- SaveSession
+	wins = {
+		{
+			"VimLeave",
+			"*",
+			[[lua require('persisted').save({override = true, leave_vim = true })]],
+		},
+	},
+	ft = {
+		{ "FileType", "dashboard", "set showtabline=0" },
 	},
 }
 
@@ -33,6 +40,62 @@ vim.api.nvim_create_user_command("DiffOrigOpen", function()
 	vim.cmd.wincmd("p")
 	vim.cmd.diffthis() -- current buffer
 end, {})
+
+-- vim.api.nvim_create_augroup("IndentBlankLineFix", {})
+-- vim.api.nvim_create_autocmd("WinScrolled", {
+-- 	group = "IndentBlankLineFix",
+-- 	callback = function()
+-- 		if vim.v.event.all.leftcol ~= 0 then
+-- 			vim.cmd("silent! IndentBlanklineRefresh")
+-- 		end
+-- 	end,
+-- })
+
+-- auto close some filetype with <ESC>
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("SoftESCQuit", { clear = true }),
+	pattern = {
+		"sagacodeaction",
+		"nil",
+		"nofile",
+		"notify",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.api.nvim_buf_set_keymap(event.buf, "n", "<ESC>", "<CMD>close<CR>", { silent = true })
+	end,
+})
+
+-- auto close some filetype with <q>
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"fugitive",
+		"lspsagaoutline",
+		"spectre_panel",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<Cmd>close<CR>", { silent = true })
+	end,
+})
+
+-- Load internal plugins
+vim.api.nvim_create_autocmd("CursorHold", {
+	callback = function()
+		require("user.internal")
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("HardQuit", { clear = true }),
+	pattern = {
+		"dashboard",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<CMD>q<CR>", { silent = true })
+	end,
+})
 
 vim.api.nvim_create_user_command("DiffOrigClose", function()
 	vim.cmd("windo diffoff")
@@ -74,5 +137,7 @@ vim.api.nvim_create_user_command("Diffoff", function()
 		end
 	end
 end, {})
+
+require("user.commands")
 
 return definitions

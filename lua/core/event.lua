@@ -1,9 +1,10 @@
--- Now use `<A-k>` or `<A-1>` to back to the `dotstutor`.
+-- Now use `<A-o>` or `<A-1>` to back to the `dotstutor`.
 local autocmd = {}
 
 function autocmd.nvim_create_augroups(definitions)
 	for group_name, definition in pairs(definitions) do
-		vim.api.nvim_command("augroup " .. group_name)
+		-- Prepend an underscore to avoid name clashes
+		vim.api.nvim_command("augroup _" .. group_name)
 		vim.api.nvim_command("autocmd!")
 		for _, def in ipairs(definition) do
 			local command = table.concat(vim.iter({ "autocmd", def }):flatten(math.huge):totable(), " ")
@@ -13,23 +14,21 @@ function autocmd.nvim_create_augroups(definitions)
 	end
 end
 
--- defer setting LSP-related keymaps till LspAttach
+-- Hold off on configuring anything related to the LSP until LspAttach
 local mapping = require("keymap.completion")
-_G._lspkeymap_loaded_bufnr = {}
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("LspKeymapLoader", { clear = true }),
 	callback = function(event)
 		if not _G._debugging then
+			-- LSP Keymaps
 			mapping.lsp(event.buf)
-		end
-	end,
-})
-vim.api.nvim_create_augroup("IndentBlankLineFix", {})
-vim.api.nvim_create_autocmd("WinScrolled", {
-	group = "IndentBlankLineFix",
-	callback = function()
-		if vim.v.event.all.leftcol ~= 0 then
-			vim.cmd("silent! IndentBlanklineRefresh")
+
+			-- LSP Inlay Hints
+			local inlayhints_enabled = require("core.settings").lsp_inlayhints
+			local client = vim.lsp.get_client_by_id(event.data.client_id)
+			if client and client.server_capabilities.inlayHintProvider ~= nil then
+				vim.lsp.inlay_hint.enable(inlayhints_enabled == true, { bufnr = event.buf })
+			end
 		end
 	end,
 })
@@ -42,7 +41,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		local layout = vim.api.nvim_call_function("winlayout", {})
 		if
 			layout[1] == "leaf"
-			and vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(layout[2]) }) == "NvimTree"
+			and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == "NvimTree"
 			and layout[3] == nil
 		then
 			vim.api.nvim_command([[confirm quit]])
@@ -50,24 +49,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
--- auto close some filetype with <ESC>
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("SoftESCQuit", { clear = true }),
-	pattern = {
-		"sagacodeaction",
-		"nil",
-		"nofile",
-		"notify",
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.api.nvim_buf_set_keymap(event.buf, "n", "<ESC>", "<CMD>close<CR>", { silent = true })
-	end,
-})
-
 -- auto close some filetype with <q>
 vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("SoftQuit", { clear = true }),
 	pattern = {
 		"qf",
 		"help",
@@ -82,23 +65,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		"startuptime",
 		"tsplayground",
 		"PlenaryTestPopup",
-		"fugitive",
-		"lspsagaoutline",
-		"spectre_panel",
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
-		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<CMD>close<CR>", { silent = true })
-	end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("HardQuit", { clear = true }),
-	pattern = {
-		"dashboard",
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<CMD>q<CR>", { silent = true })
+		vim.api.nvim_buf_set_keymap(event.buf, "n", "q", "<Cmd>close<CR>", { silent = true })
 	end,
 })
 
@@ -122,7 +92,7 @@ function autocmd.load_autocmds()
 			{ "BufWritePre", "MERGE_MSG", "setlocal noundofile" },
 			{ "BufWritePre", "*.tmp", "setlocal noundofile" },
 			{ "BufWritePre", "*.bak", "setlocal noundofile" },
-			-- auto place to ast edit
+			-- auto place to last edit
 			{
 				"BufReadPost",
 				"*",
@@ -152,45 +122,30 @@ function autocmd.load_autocmds()
 				"*",
 				[[if has('nvim') | wshada | else | wviminfo! | endif]],
 			},
-			-- SaveSession
-			{
-				"VimLeave",
-				"*",
-				[[lua require('persisted').save({override = true, leave_vim = true })]],
-			},
 			-- Check if file changed when its window is focus, more eager than 'autoread'
 			{ "FocusGained", "* checktime" },
 			-- Equalize window dimensions when resizing vim window
 			{ "VimResized", "*", [[tabdo wincmd =]] },
 		},
 		ft = {
-			{ "FileType", "dashboard", "set showtabline=0" },
-			{ "FileType", "markdown", "set wrap" },
-			{ "FileType", "make", "set noexpandtab shiftwidth=8 softtabstop=0" },
+			{ "FileType", "*", "setlocal formatoptions-=cro" },
+			{ "FileType", "alpha", "setlocal showtabline=0" },
+			{ "FileType", "markdown", "setlocal wrap" },
 			{ "FileType", "dap-repl", "lua require('dap.ext.autocompl').attach()" },
-			{
-				"FileType",
-				"*",
-				[[setlocal formatoptions-=cro]],
-			},
 			{
 				"FileType",
 				"c,cpp",
 				"nnoremap <leader>h :ClangdSwitchSourceHeaderVSplit<CR>",
 			},
 		},
-		-- indentline = {
-		-- 	{ "WinEnter", "*", 'lua require("indent_blankline.commands").refresh("<bang>" == "!")' },
-		-- },
-		-- yank = {
-		-- 	{
-		-- 		"TextYankPost",
-		-- 		"*",
-		-- 		[[silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=500})]],
-		-- 	},
-		-- },
+		yank = {
+			{
+				"TextYankPost",
+				"*",
+				[[silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=300})]],
+			},
+		},
 	}
-
 	autocmd.nvim_create_augroups(require("modules.utils").extend_config(definitions, "user.event"))
 end
 

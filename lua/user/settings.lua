@@ -11,6 +11,10 @@ settings["mode"] = "full"
 ---@type number
 settings["cmp_max_width"] = 45
 
+-- Set it to false if you want to turn off LSP Inlay Hints
+---@type boolean
+settings["lsp_inlayhints"] = false
+
 settings["diagnostics_virtual_text"] = false
 settings["format_on_save"] = false
 

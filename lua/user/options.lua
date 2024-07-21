@@ -1,9 +1,7 @@
 local options = {
 	-- Example
-	autoindent = true,
-	clipboard = nil,
+	clipboard = "",
 	cursorcolumn = false,
-	laststatus = 3,
 	listchars = "eol:↴,nbsp:+,tab:│ ,trail:-",
 	relativenumber = false,
 	scrolloff = 5,
