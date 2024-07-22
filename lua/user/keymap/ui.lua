@@ -7,6 +7,11 @@ local mapping = {
 	["n|<leader>gb"] = map_cr("BufferLinePick"):with_noremap():with_desc("buffer: Line pick"),
 	["n|<leader>be"] = "",
 	["n|<leader>bd"] = "",
+	-- Plugin: ZenMode
+	["n|<leader>z"] = map_cr("ZenMode"):with_noremap():with_silent():with_desc("Toggle ZenMode"),
+	-- Plugin: hi-my-words
+	["n|<leader>hw"] = map_cr("HiMyWordsToggle"):with_noremap():with_silent():with_desc("Toggle hi-my-words"),
+	["n|<leader>hW"] = map_cr("HiMyWordsClear"):with_noremap():with_silent():with_desc("Toggle hi-my-words"),
 }
 
 function mapping.gitsigns(buf)
