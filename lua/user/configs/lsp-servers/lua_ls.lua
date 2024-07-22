@@ -1,4 +1,4 @@
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
+-- -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
 return {
 	settings = {
 		Lua = {
@@ -14,10 +14,15 @@ return {
 				},
 				maxPreload = 100000,
 				preloadFileSize = 10000,
+				checkThirdParty = false,
 			},
-			hint = { enable = true, setType = true },
+			hint = {
+				enable = true,
+				setType = true,
+			},
 			format = { enable = false },
 			telemetry = { enable = false },
+			completion = { callSnippet = "Replace" },
 			-- Do not override treesitter lua highlighting with lua_ls's highlighting
 			semantic = { enable = false },
 		},
