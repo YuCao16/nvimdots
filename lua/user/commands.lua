@@ -54,3 +54,10 @@ end
 vim.api.nvim_command("command! -nargs=* Record lua _G.command_to_buffer(<f-args>)")
 
 vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
+
+vim.api.nvim_create_user_command("Format", function()
+	require("modules.configs.completion.formatting").format({
+		timeout_ms = 2500,
+		filter = require("modules.configs.completion.formatting").format_filter,
+	})
+end, {})
