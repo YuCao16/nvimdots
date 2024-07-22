@@ -119,6 +119,12 @@ local server_specific_plugins = {
 	"sindrets/diffview.nvim",
 	"tpope/vim-fugitive",
 	"FabianWirth/search.nvim",
+	"numToStr/Comment.nvim",
+	"windwp/nvim-autopairs",
+	"petertriho/nvim-scrollbar",
+	"folke/todo-comments.nvim",
+	"brenoprata10/nvim-highlight-colors",
+	"L3MON4D3/LuaSnip",
 }
 
 local function merge_lists(base_list, additional_list)

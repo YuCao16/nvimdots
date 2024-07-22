@@ -6,12 +6,6 @@ local icons = {
 local ELLIPSIS = "…"
 local settings = require("core.settings")
 local MAX_LABEL_WIDTH = settings.cmp_max_width
--- safely load luasnip.nvim
-local snip_ok, luasnip = pcall(require, "luasnip")
-if not snip_ok then
-	vim.notify("luasnip failed", "error", { render = "minimal" })
-	return
-end
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
@@ -31,6 +25,28 @@ end
 
 local use_copilot = require("core.settings").use_copilot
 local mode = require("core.settings").mode
+-- safely load luasnip.nvim
+if mode ~= "server" then
+	local snip_ok, luasnip = pcall(require, "luasnip")
+	if not snip_ok then
+		vim.notify("luasnip failed", "error", { render = "minimal" })
+		return
+	end
+else
+	local luasnip = {}
+	luasnip.visible = function()
+		return false
+	end
+	luasnip.expandable = function()
+		return false
+	end
+	luasnip.expand_or_jumpable = function()
+		return false
+	end
+	luasnip.jumpable = function()
+		return false
+	end
+end
 local comparators
 if use_copilot and mode ~= "server" then
 	comparators = {
@@ -194,7 +210,9 @@ return function()
 		}),
 		snippet = {
 			expand = function(args)
-				require("luasnip").lsp_expand(args.body)
+				if mode == "full" then
+					require("luasnip").lsp_expand(args.body)
+				end
 			end,
 		},
 		-- You should specify your *installed* sources.
