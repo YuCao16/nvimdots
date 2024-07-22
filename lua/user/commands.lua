@@ -1,6 +1,24 @@
-local bufnames = {}
+local _runcode = nil
+_G._toggle_runcode = function()
+	if vim.fn.executable("python") == 1 then
+		if not _lazygit then
+			_runcode = require("toggleterm.terminal").Terminal:new({
+				cmd = "python " .. vim.fn.expand("%:p"),
+				direction = "horizontal",
+				close_on_exit = false,
+				hidden = false,
+			})
+		end
+		if _runcode ~= nil then
+			_runcode:toggle()
+		end
+	else
+		vim.notify("Command [python] not found!", vim.log.levels.ERROR, { title = "toggleterm.nvim" })
+	end
+end
 
-function command_to_buffer(command, bufname)
+local bufnames = {}
+_G.command_to_buffer = function(command, bufname)
 	bufname = bufname or "Record"
 	-- Check if a buffer with this name already exists
 	local original_bufname = bufname
@@ -33,6 +51,6 @@ function command_to_buffer(command, bufname)
 	vim.api.nvim_set_current_buf(buf)
 end
 
-vim.api.nvim_command("command! -nargs=* Record lua command_to_buffer(<f-args>)")
+vim.api.nvim_command("command! -nargs=* Record lua _G.command_to_buffer(<f-args>)")
 
 vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
