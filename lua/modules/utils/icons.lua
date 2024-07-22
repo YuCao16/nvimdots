@@ -50,7 +50,6 @@ local data = {
 		Terminal = "",
 		TypeAlias = "",
 	},
-
 	type = {
 		Array = "󰅪",
 		Boolean = "",
