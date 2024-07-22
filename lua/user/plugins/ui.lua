@@ -47,12 +47,12 @@ ui["stevearc/dressing.nvim"] = {
 	event = { "VeryLazy" },
 	config = require("ui.dressing_config"),
 }
-ui["uga-rosa/ccc.nvim"] = {
-	lazy = true,
-	cmd = { "CCCPick", "CCCHighlighterToggle", "CCCHighlighterEnable", "CCCHighlighterDisable" },
-	ft = { "lua", "toml" },
-	config = require("ui.ccc_config"),
-}
+-- ui["uga-rosa/ccc.nvim"] = {
+-- 	lazy = true,
+-- 	cmd = { "CCCPick", "CCCHighlighterToggle", "CCCHighlighterEnable", "CCCHighlighterDisable" },
+-- 	ft = { "lua", "toml" },
+-- 	config = require("ui.ccc_config"),
+-- }
 ui["machakann/vim-highlightedyank"] = {
 	lazy = true,
 	event = { "VeryLazy" },

@@ -30,11 +30,11 @@ editor["famiu/bufdelete.nvim"] = {
 	lazy = true,
 	event = { "BufReadPost" },
 }
-editor["SmiteshP/nvim-navic"] = {
-	lazy = true,
-	event = { "BufReadPost" },
-	config = require("editor.navic"),
-}
+-- editor["SmiteshP/nvim-navic"] = {
+-- 	lazy = true,
+-- 	event = { "BufReadPost" },
+-- 	config = require("editor.navic"),
+-- }
 editor["yorickpeterse/nvim-window"] = {
 	lazy = true,
 	event = { "WinNew" },
@@ -62,6 +62,25 @@ editor["nvim-treesitter/playground"] = {
 	lazy = true,
 	cmd = "TSPlaygroundToggle",
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
+}
+editor["smoka7/hop.nvim"] = {
+	lazy = true,
+	version = "*",
+	event = false,
+	cmd = { "HopWord" },
+	config = require("editor.hop"),
+}
+editor["brenoprata10/nvim-highlight-colors"] = {
+	lazy = true,
+	event = false,
+	cmd = { "HighlightColors" },
+	ft = { "lua", "toml" },
+	config = require("editor.highlight-colors"),
+}
+editor["nvim-pack/nvim-spectre"] = {
+	lazy = true,
+	cmd = { "Spectre" },
+	config = true,
 }
 
 ----------------------------------------------------------------------

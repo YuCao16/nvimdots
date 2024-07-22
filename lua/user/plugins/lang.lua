@@ -1,5 +1,13 @@
 local lang = {}
 
+-- Python
+lang["AckslD/swenv.nvim"] = {
+	lazy = true,
+	ft = "python",
+	config = require("lang.swenv"),
+}
+
+-- Markdown
 lang["plasticboy/vim-markdown"] = {
 	lazy = true,
 	ft = "markdown",
@@ -11,6 +19,34 @@ lang["plasticboy/vim-markdown"] = {
 		vim.g["vim_markdown_conceal_code_blocks"] = 0
 	end,
 }
+lang["ellisonleao/glow.nvim"] = {
+	lazy = true,
+	ft = { "markdown" },
+	cmd = { "Glow" },
+	config = function()
+		require("glow").setup({
+			border = "rounded",
+		})
+	end,
+}
+lang["lukas-reineke/headlines.nvim"] = {
+	lazy = true,
+	ft = { "org" },
+	config = require("lang.headlines"),
+}
+lang["dhruvasagar/vim-table-mode"] = {
+	lazy = true,
+	cmd = { "TableModeEnable", "TableModelToggle" },
+	ft = { "markdown", "tex", "ipynb", "org" },
+	config = require("lang.vim_table_mode"),
+}
+lang["MeanderingProgrammer/markdown.nvim"] = {
+	lazy = true,
+	ft = { "markdown" },
+	config = true,
+}
+
+-- Latex
 lang["lervag/vimtex"] = {
 	lazy = true,
 	ft = { "markdown", "tex", "ipynb", "org" },
@@ -29,16 +65,8 @@ lang["jbyuki/nabla.nvim"] = {
 	lazy = true,
 	ft = { "markdown", "tex", "ipynb", "org", "lua", "python" },
 }
-lang["ellisonleao/glow.nvim"] = {
-	lazy = true,
-	ft = { "markdown" },
-	cmd = { "Glow" },
-	config = function()
-		require("glow").setup({
-			border = "rounded",
-		})
-	end,
-}
+
+-- Orgmode
 lang["nvim-orgmode/orgmode"] = {
 	lazy = true,
 	ft = { "org", "orgmode" },
@@ -68,17 +96,14 @@ lang["nvim-orgmode/orgmode"] = {
 		},
 	},
 }
-lang["lukas-reineke/headlines.nvim"] = {
+
+-- Typst
+lang["kaarmu/typst.vim"] = {
 	lazy = true,
-	ft = { "markdown", "org" },
-	config = require("lang.headlines"),
+	ft = { "typst" },
 }
-lang["dhruvasagar/vim-table-mode"] = {
-	lazy = true,
-	cmd = { "TableModeEnable", "TableModelToggle" },
-	ft = { "markdown", "tex", "ipynb", "org" },
-	config = require("lang.vim_table_mode"),
-}
+
+-- Others
 lang["mtdl9/vim-log-highlighting"] = {
 	lazy = true,
 	ft = {
@@ -87,19 +112,10 @@ lang["mtdl9/vim-log-highlighting"] = {
 		"log",
 	},
 }
-lang["AckslD/swenv.nvim"] = {
-	lazy = true,
-	ft = "python",
-	config = require("lang.swenv"),
-}
 lang["CRAG666/code_runner.nvim"] = {
 	lazy = true,
 	config = require("lang.code_runner"),
 	cmd = { "RunCode" },
-}
-lang["kaarmu/typst.vim"] = {
-	lazy = true,
-	ft = { "typst" },
 }
 
 return lang

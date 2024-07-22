@@ -3,20 +3,21 @@ local use_copilot = require("core.settings").use_copilot
 
 completion["neovim/nvim-lspconfig"] = {
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI", "BufReadPost", "BufAdd" },
+	event = { "CursorHold", "CursorHoldI" },
 	config = require("completion.lsp"),
 	dependencies = {
 		{ "williamboman/mason.nvim" },
 		{ "williamboman/mason-lspconfig.nvim" },
+		{ "folke/neoconf.nvim" },
 		{
 			"Jint-lzxy/lsp_signature.nvim",
 			config = require("completion.lsp-signature"),
-			commit = "bd50289",
 		},
 	},
 }
 completion["nvimdev/lspsaga.nvim"] = {
 	lazy = true,
+	event = "LspAttach",
 	config = require("completion.lspsaga"),
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 }
@@ -25,7 +26,7 @@ completion["stevearc/aerial.nvim"] = {
 	event = "LspAttach",
 	config = require("completion.aerial"),
 }
-completion["dnlhc/glance.nvim"] = {
+completion["DNLHC/glance.nvim"] = {
 	lazy = true,
 	event = "LspAttach",
 	config = require("completion.glance"),
@@ -36,7 +37,6 @@ completion["joechrisellis/lsp-format-modifications.nvim"] = {
 }
 completion["nvimtools/none-ls.nvim"] = {
 	lazy = true,
-	commit = "e438cbc",
 	event = { "CursorHold", "CursorHoldI" },
 	config = require("completion.null-ls"),
 	dependencies = {
@@ -49,11 +49,12 @@ completion["hrsh7th/nvim-cmp"] = {
 	event = "InsertEnter",
 	config = require("completion.cmp"),
 	dependencies = {
-		-- {
-		-- 	"L3MON4D3/LuaSnip",
-		-- 	dependencies = { "rafamadriz/friendly-snippets" },
-		-- 	config = require("completion.luasnip"),
-		-- },
+		{
+			"L3MON4D3/LuaSnip",
+			build = "make install_jsregexp",
+			config = require("completion.luasnip"),
+			dependencies = { "rafamadriz/friendly-snippets" },
+		},
 		{ "lukas-reineke/cmp-under-comparator" },
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "hrsh7th/cmp-nvim-lsp" },
@@ -63,7 +64,7 @@ completion["hrsh7th/nvim-cmp"] = {
 		{ "f3fora/cmp-spell" },
 		{ "hrsh7th/cmp-buffer" },
 		{ "kdheepak/cmp-latex-symbols" },
-		{ "ray-x/cmp-treesitter" },
+		{ "ray-x/cmp-treesitter", commit = "c8e3a74" },
 		-- { "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
 		-- {
 		-- 	"jcdickinson/codeium.nvim",

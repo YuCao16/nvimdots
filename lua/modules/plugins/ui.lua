@@ -10,15 +10,15 @@ ui["akinsho/bufferline.nvim"] = {
 	event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	config = require("ui.bufferline"),
 }
-ui["Jint-lzxy/nvim"] = { -- catppuccin
-	lazy = true,
+ui["Jint-lzxy/nvim"] = {
+	lazy = false,
 	branch = "refactor/syntax-highlighting",
 	name = "catppuccin",
 	config = require("ui.catppuccin"),
 }
 ui["j-hui/fidget.nvim"] = {
 	lazy = true,
-	event = { "LspAttach" },
+	event = "LspAttach",
 	config = require("ui.fidget"),
 }
 ui["lewis6991/gitsigns.nvim"] = {
@@ -38,7 +38,6 @@ ui["nvim-lualine/lualine.nvim"] = {
 }
 ui["zbirenbaum/neodim"] = {
 	lazy = true,
-	commit = "9477da0",
 	event = "LspAttach",
 	config = require("ui.neodim"),
 }
@@ -49,32 +48,24 @@ ui["karb94/neoscroll.nvim"] = {
 }
 ui["rcarriga/nvim-notify"] = {
 	lazy = true,
-	event = { "VeryLazy" },
+	event = "VeryLazy",
 	config = require("ui.notify"),
 }
-ui["folke/paint.nvim"] = { -- Easily add additional highlights to your buffers Topics
+ui["folke/paint.nvim"] = {
 	lazy = true,
-	event = { "BufReadPost" },
+	event = { "CursorHold", "CursorHoldI" },
 	config = require("ui.paint"),
+}
+ui["folke/todo-comments.nvim"] = {
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("ui.todo"),
+	dependencies = { "nvim-lua/plenary.nvim" },
 }
 ui["dstein64/nvim-scrollview"] = {
 	lazy = true,
 	event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	config = require("ui.scrollview"),
 }
-ui["edluffy/specs.nvim"] = {
-	lazy = true,
-	event = "CursorMoved",
-	config = require("ui.specs"),
-}
-ui["folke/todo-comments.nvim"] = {
-	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
-	config = require("ui.todo"),
-	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
-	},
-}
-
 
 return ui

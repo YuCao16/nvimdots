@@ -51,23 +51,21 @@ local full_null_ls_deps = {
 }
 
 local base_disabled_plugins = {
-	"fatih/vim-go",
 	"m4xshen/autoclose.nvim",
-	"max397574/better-escape.nvim",
 	"ojroques/nvim-bufdel",
 	"romainl/vim-cool",
 	"stevearc/aerial.nvim",
 	"goolord/alpha-nvim",
 	"zbirenbaum/neodim",
 	"dstein64/nvim-scrollview",
-	"edluffy/specs.nvim",
 	"nvim-tree/nvim-tree.lua",
-	"NvChad/nvim-colorizer.lua",
 	"nvim-treesitter/nvim-treesitter-context",
 	"ahmedkhalf/project.nvim",
 	"hrsh7th/cmp-nvim-lua",
 	"tzachar/local-highlight.nvim",
 	"ibhagwan/smartyank.nvim",
+	"tpope/vim-sleuth",
+	"ray-x/go.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",

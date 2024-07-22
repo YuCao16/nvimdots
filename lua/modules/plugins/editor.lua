@@ -19,11 +19,6 @@ editor["m4xshen/autoclose.nvim"] = {
 	event = "InsertEnter",
 	config = require("editor.autoclose"),
 }
-editor["max397574/better-escape.nvim"] = {
-	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
-	config = require("editor.better-escape"),
-}
 editor["LunarVim/bigfile.nvim"] = {
 	lazy = false,
 	config = require("editor.bigfile"),
@@ -47,12 +42,13 @@ editor["folke/flash.nvim"] = {
 }
 editor["numToStr/Comment.nvim"] = {
 	lazy = true,
-	event = { "CursorHold" },
+	event = { "CursorHold", "CursorHoldI" },
 	config = require("editor.comment"),
 }
 editor["sindrets/diffview.nvim"] = {
 	lazy = true,
 	cmd = { "DiffviewOpen", "DiffviewClose" },
+	config = require("editor.diffview"),
 }
 editor["echasnovski/mini.align"] = {
 	lazy = true,
@@ -62,13 +58,18 @@ editor["echasnovski/mini.align"] = {
 editor["smoka7/hop.nvim"] = {
 	lazy = true,
 	version = "*",
-	cmd = { "HopWord" },
+	event = { "CursorHold", "CursorHoldI" },
 	config = require("editor.hop"),
 }
 editor["tzachar/local-highlight.nvim"] = {
 	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
+	event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	config = require("editor.local-highlight"),
+}
+editor["brenoprata10/nvim-highlight-colors"] = {
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("editor.highlight-colors"),
 }
 editor["romainl/vim-cool"] = {
 	lazy = true,
@@ -79,16 +80,19 @@ editor["lambdalisue/suda.vim"] = {
 	cmd = { "SudaRead", "SudaWrite" },
 	init = require("editor.suda"),
 }
+editor["tpope/vim-sleuth"] = {
+	lazy = true,
+	event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+}
 editor["nvim-pack/nvim-spectre"] = {
 	lazy = true,
 	cmd = "Spectre",
-	conifg = true,
-	opts = { open_cmd = "noswapfile 50vnew" },
 }
 editor["mrjones2014/smart-splits.nvim"] = {
 	lazy = true,
 	event = { "CursorHoldI", "CursorHold" },
 	config = require("editor.splits"),
+	opts = { open_cmd = "noswapfile 50vnew" },
 }
 
 ----------------------------------------------------------------------
@@ -97,7 +101,7 @@ editor["mrjones2014/smart-splits.nvim"] = {
 editor["nvim-treesitter/nvim-treesitter"] = {
 	lazy = true,
 	build = function()
-		if #vim.api.nvim_list_uis() ~= 0 then
+		if vim.fn.has("gui_running") == 1 then
 			vim.api.nvim_command([[TSUpdate]])
 		end
 	end,
@@ -110,10 +114,6 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 		{
 			"windwp/nvim-ts-autotag",
 			config = require("editor.autotag"),
-		},
-		{
-			"NvChad/nvim-colorizer.lua",
-			config = require("editor.colorizer"),
 		},
 		{
 			"hiphish/rainbow-delimiters.nvim",

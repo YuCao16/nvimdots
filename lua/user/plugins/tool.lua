@@ -122,11 +122,24 @@ tool["nvim-telescope/telescope.nvim"] = {
 		{ "smartpde/telescope-recent-files" },
 		{ "crispgm/telescope-heading.nvim" },
 		{
+			"FabianWirth/search.nvim",
+			config = require("tool.search"),
+		},
+		{
 			"AckslD/nvim-neoclip.lua",
 			event = { "CmdlineEnter", "TextYankPost" },
 			config = require("tool.neoclip"),
 			dependencies = {
 				{ "kkharji/sqlite.lua" },
+			},
+		},
+		{
+			"aaronhallaert/advanced-git-search.nvim",
+			cmd = { "AdvancedGitSearch" },
+			dependencies = {
+				"tpope/vim-rhubarb",
+				"tpope/vim-fugitive",
+				"sindrets/diffview.nvim",
 			},
 		},
 	},
