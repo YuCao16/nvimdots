@@ -125,6 +125,7 @@ local server_specific_plugins = {
 	"folke/todo-comments.nvim",
 	"brenoprata10/nvim-highlight-colors",
 	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
 }
 
 local function merge_lists(base_list, additional_list)
