@@ -30,11 +30,11 @@ editor["famiu/bufdelete.nvim"] = {
 	lazy = true,
 	event = { "BufReadPost" },
 }
--- editor["SmiteshP/nvim-navic"] = {
--- 	lazy = true,
--- 	event = { "BufReadPost" },
--- 	config = require("editor.navic"),
--- }
+editor["SmiteshP/nvim-navic"] = {
+	lazy = true,
+	event = { "BufReadPost" },
+	config = require("editor.navic"),
+}
 editor["yorickpeterse/nvim-window"] = {
 	lazy = true,
 	event = { "WinNew" },
@@ -112,10 +112,6 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 		{
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			config = require("editor.ts-context-commentstring"),
-		},
-		{
-			"ziontee113/syntax-tree-surfer",
-			config = require("editor.tree-surfer"),
 		},
 	},
 }
