@@ -6,9 +6,36 @@ _G._command_panel = function()
 		layout_config = {
 			width = 0.6,
 			height = 0.6,
-			prompt_position = "bottom",
+			prompt_position = "top",
 		},
 	})
+end
+
+_G._telescope_collections = function(picker_type)
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+	local conf = require("telescope.config").values
+	local finder = require("telescope.finders")
+	local pickers = require("telescope.pickers")
+	picker_type = picker_type or {}
+
+	local collections = vim.tbl_keys(require("search.tabs").collections)
+	pickers
+		.new(picker_type, {
+			prompt_title = "Telescope Collections",
+			finder = finder.new_table({ results = collections }),
+			sorter = conf.generic_sorter(picker_type),
+			attach_mappings = function(bufnr)
+				actions.select_default:replace(function()
+					actions.close(bufnr)
+					local selection = action_state.get_selected_entry()
+					require("search").open({ collection = selection[1] })
+				end)
+
+				return true
+			end,
+		})
+		:find()
 end
 
 _G._flash_esc_or_noh = function()
@@ -36,22 +63,5 @@ _G._toggle_lazygit = function()
 		_lazygit:toggle()
 	else
 		vim.notify("Command [lazygit] not found!", vim.log.levels.ERROR, { title = "toggleterm.nvim" })
-	end
-end
-
-local _runcode = nil
-_G._toggle_runcode = function()
-	if vim.fn.executable("python") == 1 then
-		if not _lazygit then
-			_runcode = require("toggleterm.terminal").Terminal:new({
-				cmd = "python " .. vim.fn.expand("%:p"),
-				direction = "horizontal",
-				close_on_exit = false,
-				hidden = false,
-			})
-		end
-		_runcode:toggle()
-	else
-		vim.notify("Command [python] not found!", vim.log.levels.ERROR, { title = "toggleterm.nvim" })
 	end
 end

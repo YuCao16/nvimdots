@@ -5,12 +5,13 @@ local map_cr = bind.map_cr
 -- local map_callback = bind.map_callback
 
 local plug_map = {
-	-- Plugin: bufferline
-	["n|<leader>b"] = map_cr("BufferLineCycleNext"):with_noremap():with_desc("buffer: Cycle next"),
-	["n|<leader>B"] = map_cr("BufferLineCyclePrev"):with_noremap():with_desc("buffer: Cycle prev"),
-	["n|<leader>gb"] = map_cr("BufferLinePick"):with_noremap():with_desc("buffer: Line pick"),
-	["n|<A-S-j>"] = map_cr("BufferLineMoveNext"):with_noremap():with_silent():with_desc("buffer: Move current to next"),
-	["n|<A-S-k>"] = map_cr("BufferLineMovePrev"):with_noremap():with_silent():with_desc("buffer: Move current to prev"),
+	-- Plugin: bufferline.nvim
+	["n|<A-i>"] = map_cr("BufferLineCycleNext"):with_noremap():with_silent():with_desc("buffer: Switch to next"),
+	["n|<A-o>"] = map_cr("BufferLineCyclePrev"):with_noremap():with_silent():with_desc("buffer: Switch to prev"),
+	["n|<A-S-i>"] = map_cr("BufferLineMoveNext"):with_noremap():with_silent():with_desc("buffer: Move current to next"),
+	["n|<A-S-o>"] = map_cr("BufferLineMovePrev"):with_noremap():with_silent():with_desc("buffer: Move current to prev"),
+	["n|<leader>be"] = map_cr("BufferLineSortByExtension"):with_noremap():with_desc("buffer: Sort by extension"),
+	["n|<leader>bd"] = map_cr("BufferLineSortByDirectory"):with_noremap():with_desc("buffer: Sort by directory"),
 	["n|<A-1>"] = map_cr("BufferLineGoToBuffer 1"):with_noremap():with_silent():with_desc("buffer: Goto buffer 1"),
 	["n|<A-2>"] = map_cr("BufferLineGoToBuffer 2"):with_noremap():with_silent():with_desc("buffer: Goto buffer 2"),
 	["n|<A-3>"] = map_cr("BufferLineGoToBuffer 3"):with_noremap():with_silent():with_desc("buffer: Goto buffer 3"),
@@ -20,13 +21,6 @@ local plug_map = {
 	["n|<A-7>"] = map_cr("BufferLineGoToBuffer 7"):with_noremap():with_silent():with_desc("buffer: Goto buffer 7"),
 	["n|<A-8>"] = map_cr("BufferLineGoToBuffer 8"):with_noremap():with_silent():with_desc("buffer: Goto buffer 8"),
 	["n|<A-9>"] = map_cr("BufferLineGoToBuffer 9"):with_noremap():with_silent():with_desc("buffer: Goto buffer 9"),
-
-	-- Plugin: ZenMode
-	["n|<leader>z"] = map_cr("ZenMode"):with_noremap():with_silent():with_desc("Toggle ZenMode"),
-
-	-- Plugin: hi-my-words
-	["n|<leader>hw"] = map_cr("HiMyWordsToggle"):with_noremap():with_silent():with_desc("Toggle hi-my-words"),
-	["n|<leader>hW"] = map_cr("HiMyWordsClear"):with_noremap():with_silent():with_desc("Toggle hi-my-words"),
 }
 
 bind.nvim_load_mapping(plug_map)
@@ -60,42 +54,42 @@ function mapping.gitsigns(buf)
 			:with_buffer(buf)
 			:with_expr()
 			:with_desc("git: Goto prev hunk"),
-		["n|<leader>hs"] = bind.map_callback(function()
+		["n|<leader>gs"] = bind.map_callback(function()
 			actions.stage_hunk()
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Stage hunk"),
-		["v|<leader>hs"] = bind.map_callback(function()
+		["v|<leader>gs"] = bind.map_callback(function()
 			actions.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Stage hunk"),
-		["n|<leader>hu"] = bind.map_callback(function()
+		["n|<leader>gu"] = bind.map_callback(function()
 			actions.undo_stage_hunk()
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Undo stage hunk"),
-		["n|<leader>hr"] = bind.map_callback(function()
+		["n|<leader>gr"] = bind.map_callback(function()
 			actions.reset_hunk()
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Reset hunk"),
-		["v|<leader>hr"] = bind.map_callback(function()
+		["v|<leader>gr"] = bind.map_callback(function()
 			actions.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Reset hunk"),
-		["n|<leader>hR"] = bind.map_callback(function()
+		["n|<leader>gR"] = bind.map_callback(function()
 			actions.reset_buffer()
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Reset buffer"),
-		["n|<leader>hp"] = bind.map_callback(function()
+		["n|<leader>gp"] = bind.map_callback(function()
 			actions.preview_hunk()
 		end)
 			:with_buffer(buf)
 			:with_desc("git: Preview hunk"),
-		["n|<leader>hb"] = bind.map_callback(function()
+		["n|<leader>gb"] = bind.map_callback(function()
 			actions.blame_line({ full = true })
 		end)
 			:with_buffer(buf)
