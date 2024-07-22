@@ -5,7 +5,7 @@ local settings = {}
 settings["colorscheme"] = "onedark"
 
 -- Mode
-settings["mode"] = "full"
+settings["mode"] = "server"
 
 -- Set to cmp menu max width
 ---@type number
@@ -112,6 +112,13 @@ local server_specific_plugins = {
 	"folke/paint.nvim",
 	"mrjones2014/smart-splits.nvim",
 	"mrcjkb/rustaceanvim",
+	"lambdalisue/suda.vim",
+	"Jint-lzxy/nvim",
+	"mg979/vim-visual-multi",
+	"aaronhallaert/advanced-git-search.nvim",
+	"sindrets/diffview.nvim",
+	"tpope/vim-fugitive",
+	"FabianWirth/search.nvim",
 }
 
 local function merge_lists(base_list, additional_list)
