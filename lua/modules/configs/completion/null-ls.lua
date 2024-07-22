@@ -47,13 +47,19 @@ return function()
 				-- "markdown",
 			},
 		}),
-		btns.formatting.rustfmt,
+		btns.formatting.rustfmt.with({
+			condition = is_executable("rustfmt"),
+		}),
 		btns.diagnostics.markdownlint.with({
 			extra_args = { "--disable=line_length" },
 			condition = is_executable("markdownlint"),
 		}),
-		btns.diagnostics.alex,
-		btns.formatting.mdformat,
+		btns.diagnostics.alex.with({
+			condition = is_executable("alex"),
+		}),
+		btns.formatting.mdformat.with({
+			condition = is_executable("mdformat"),
+		}),
 	}
 
 	require("modules.utils").load_plugin("null-ls", {
