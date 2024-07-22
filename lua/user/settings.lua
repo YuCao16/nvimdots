@@ -66,6 +66,7 @@ local base_disabled_plugins = {
 	"ibhagwan/smartyank.nvim",
 	"tpope/vim-sleuth",
 	"ray-x/go.nvim",
+	"Bekaboo/dropbar.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",
@@ -145,7 +146,9 @@ end
 
 settings.disabled_plugins =
 	update_settings_for_mode(settings.mode, base_disabled_plugins, server_specific_plugins, "merge")
-settings.lsp_deps = update_settings_for_mode(settings.mode, full_lsp_deps, server_lsp_deps, "use-specific")
+settings.lsp_deps = function()
+	return update_settings_for_mode(settings.mode, full_lsp_deps, server_lsp_deps, "use-specific")
+end
 settings.null_ls_deps = update_settings_for_mode(settings.mode, full_null_ls_deps, server_null_ls_deps, "use-specific")
 
 return settings
