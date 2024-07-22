@@ -49,6 +49,7 @@ local function init_palette()
 				palette = nil
 				init_palette()
 				-- Also refresh hard-coded hl groups
+				M.gen_alpha_hl()
 				M.gen_lspkind_hl()
 				pcall(vim.cmd.AlphaRedraw)
 			end,
@@ -95,10 +96,11 @@ local function init_palette()
 end
 
 ---@param c string @The color in hexadecimal.
-local function hex_To_Rgb(c)
+local function hex_to_rgb(c)
 	c = string.lower(c)
 	return { tonumber(c:sub(2, 3), 16), tonumber(c:sub(4, 5), 16), tonumber(c:sub(6, 7), 16) }
 end
+
 -- NOTE: If the active colorscheme isn't `catppuccin`, this function won't overwrite existing definitions
 ---Sets a global highlight group.
 ---@param name string @Highlight group name, e.g. "ErrorMsg"
@@ -119,17 +121,16 @@ end
 ---@param background string @The background color to blend with
 ---@param alpha number|string @Number between 0 and 1 for blending amount.
 function M.blend(foreground, background, alpha)
-	---@diagnostic disable-next-line: cast-local-type
 	alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
-	local bg = hex_To_Rgb(background)
-	local fg = hex_To_Rgb(foreground)
+	local bg = hex_to_rgb(background)
+	local fg = hex_to_rgb(foreground)
 
-	local blend_Channel = function(i)
+	local blend_channel = function(i)
 		local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
 		return math.floor(math.min(math.max(0, ret), 255) + 0.5)
 	end
 
-	return string.format("#%02x%02x%02x", blend_Channel(1), blend_Channel(2), blend_Channel(3))
+	return string.format("#%02x%02x%02x", blend_channel(1), blend_channel(2), blend_channel(3))
 end
 
 ---Get RGB highlight by highlight group
@@ -224,79 +225,28 @@ function M.gen_lspkind_hl()
 	end
 end
 
-function M.gen_vistakind_hl()
+-- Generate highlight groups for alpha. Existing attributes will NOT be overwritten
+function M.gen_alpha_hl()
 	local colors = M.get_palette()
-	local dat = {
-		Class = colors.yellow,
-		Constant = colors.peach,
-		Constructor = colors.sapphire,
-		Enum = colors.yellow,
-		EnumMember = colors.teal,
-		Event = colors.yellow,
-		Field = colors.teal,
-		File = colors.rosewater,
-		Function = colors.blue,
-		Interface = colors.yellow,
-		Key = colors.red,
-		Method = colors.blue,
-		Module = colors.blue,
-		Namespace = colors.blue,
-		Number = colors.peach,
-		Operator = colors.sky,
-		Package = colors.blue,
-		Property = colors.teal,
-		Struct = colors.yellow,
-		TypeParameter = colors.blue,
-		Variable = colors.peach,
-		Array = colors.peach,
-		Boolean = colors.peach,
-		Null = colors.yellow,
-		Object = colors.yellow,
-		String = colors.green,
-		TypeAlias = colors.green,
-		Parameter = colors.blue,
-		StaticMethod = colors.peach,
-		Text = colors.green,
-		Snippet = colors.mauve,
-		Folder = colors.blue,
-		Unit = colors.green,
-		Value = colors.peach,
-	}
 
-	for kind, color in pairs(dat) do
-		vim.api.nvim_set_hl(0, "VistaOutline" .. kind, { fg = color, default = true })
-	end
+	set_global_hl("AlphaHeader", colors.blue)
+	set_global_hl("AlphaButtons", colors.green)
+	set_global_hl("AlphaShortcut", colors.pink, nil, true)
+	set_global_hl("AlphaFooter", colors.yellow)
 end
 
--- Generate highlight groups for onedark.nvim. Existing attributes will NOT be overwritten
--- TODO: Select
-function M.gen_onedark_hl()
-	vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { link = "TSRainbowRed" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { link = "TSRainbowYellow" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { link = "TSRainbowBlue" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { link = "TSRainbowOrange" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { link = "TSRainbowGreen" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { link = "TSRainbowViolet" })
-	vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { link = "TSRainbowCyan" })
-	vim.api.nvim_set_hl(0, "TSRainbowRed", { link = "rainbowcol1" })
-	vim.api.nvim_set_hl(0, "TSRainbowYellow", { link = "rainbowcol2" })
-	vim.api.nvim_set_hl(0, "TSRainbowBlue", { link = "rainbowcol3" })
-	vim.api.nvim_set_hl(0, "TSRainbowOrange", { link = "rainbowcol4" })
-	vim.api.nvim_set_hl(0, "TSRainbowGreen", { link = "rainbowcol5" })
-	vim.api.nvim_set_hl(0, "TSRainbowViolet", { link = "rainbowcol6" })
-	vim.api.nvim_set_hl(0, "TSRainbowCyan", { link = "rainbowcol7" })
-	vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ffd700" })
-	-- vim.api.nvim_set_hl(0, "Identifier", { fg = "#abb2bf" })
-	-- vim.api.nvim_set_hl(0, "@constructor", { fg = "#abb2bf" })
-	-- vim.api.nvim_set_hl(0, "@method.call", { fg = "#abb2bf" })
-	-- vim.api.nvim_set_hl(0, "@function.call", { fg = "#abb2bf" })
-	-- vim.api.nvim_set_hl(0, "@field", { fg = "#abb2bf" })
-	-- vim.api.nvim_set_hl(0, "@constant", { fg = "#abb2bf" })
-	vim.api.nvim_set_hl(0, "@operator", { link = "Operator" })
-	vim.api.nvim_set_hl(0, "@parameter", { fg = "#d19a66" })
-	vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#E86671" })
-	vim.api.nvim_set_hl(0, "@type.builtin", { link = "@function.builtin" })
-	vim.api.nvim_set_hl(0, "lualine_c_normal", { fg = "#abb2bf" })
+-- Generate blend_color for neodim.
+function M.gen_neodim_blend_attr()
+	local trans_bg = require("core.settings").transparent_background
+	local appearance = require("core.settings").background
+
+	if trans_bg and appearance == "dark" then
+		return "#000000"
+	elseif trans_bg and appearance == "light" then
+		return "#FFFFFF"
+	else
+		return M.hl_to_rgb("Normal", true)
+	end
 end
 
 ---Convert number (0/1) to boolean
@@ -326,9 +276,9 @@ local function tbl_recursive_merge(dst, src)
 	for key, value in pairs(src) do
 		if type(dst[key]) == "table" and type(value) == "function" then
 			dst[key] = value(dst[key])
-		elseif type(dst[key]) == "table" and type(value) == "table" and not vim.islist(dst[key]) then
+		elseif type(dst[key]) == "table" and vim.islist(dst[key]) and key ~= "dashboard_image" then
 			vim.list_extend(dst[key], value)
-		elseif type(dst[key]) == "table" and not vim.islist(dst[key]) then
+		elseif type(dst[key]) == "table" and type(value) == "table" and not vim.islist(dst[key]) then
 			tbl_recursive_merge(dst[key], value)
 		else
 			dst[key] = value
@@ -400,6 +350,7 @@ function M.load_plugin(plugin_name, opts, vim_plugin, setup_callback)
 							[[
 Please return a `table` if you want to override some of the default options OR a
 `function` returning a `table` if you want to replace the default options completely.
+
 We received a `%s` for plugin <%s>.]],
 							type(user_config),
 							plugin_name
