@@ -1,4 +1,5 @@
 return function()
+	local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
 	local colors = require("modules.utils").get_palette()
 	local icons = {
 		diagnostics = require("modules.utils.icons").get("diagnostics", true),
@@ -8,22 +9,50 @@ return function()
 		ui = require("modules.utils.icons").get("ui", true),
 	}
 
-	local mini_sections = {
-		lualine_a = { "filetype" },
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
-	}
-	local outline = {
-		sections = mini_sections,
-		filetypes = { "VistaNvim" },
-	}
-	local diffview = {
-		sections = mini_sections,
-		filetypes = { "DiffviewFiles" },
-	}
+	local function custom_theme()
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			group = vim.api.nvim_create_augroup("LualineColorScheme", { clear = true }),
+			pattern = "*",
+			callback = function()
+				has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
+				require("lualine").setup({ options = { theme = custom_theme() } })
+			end,
+		})
+
+		if has_catppuccin then
+			colors = require("modules.utils").get_palette()
+			local universal_bg = require("core.settings").transparent_background and "NONE" or colors.mantle
+			return {
+				normal = {
+					a = { fg = colors.lavender, bg = colors.surface0, gui = "bold" },
+					b = { fg = colors.text, bg = universal_bg },
+					c = { fg = colors.text, bg = universal_bg },
+				},
+				command = {
+					a = { fg = colors.peach, bg = colors.surface0, gui = "bold" },
+				},
+				insert = {
+					a = { fg = colors.green, bg = colors.surface0, gui = "bold" },
+				},
+				visual = {
+					a = { fg = colors.flamingo, bg = colors.surface0, gui = "bold" },
+				},
+				terminal = {
+					a = { fg = colors.teal, bg = colors.surface0, gui = "bold" },
+				},
+				replace = {
+					a = { fg = colors.red, bg = colors.surface0, gui = "bold" },
+				},
+				inactive = {
+					a = { fg = colors.subtext0, bg = universal_bg, gui = "bold" },
+					b = { fg = colors.subtext0, bg = universal_bg },
+					c = { fg = colors.subtext0, bg = universal_bg },
+				},
+			}
+		else
+			return "auto"
+		end
+	end
 
 	local conditionals = {
 		has_enough_room = function()
@@ -64,18 +93,23 @@ return function()
 		---@param special_nobg boolean @Disable guibg for transparent backgrounds?
 		---@param bg string? @Background hl group
 		---@param gui string? @GUI highlight arguments
-		---@return fun():lualine_hlgrp
+		---@return nil|fun():lualine_hlgrp
 		gen_hl = function(fg, gen_bg, special_nobg, bg, gui)
-			return function()
-				local guifg = colors[fg]
-				local guibg = gen_bg and require("modules.utils").hl_to_rgb("StatusLine", true, colors.mantle)
-					or colors[bg]
-				local nobg = special_nobg and require("core.settings").transparent_background
-				return {
-					fg = guifg and guifg or colors.none,
-					bg = (guibg and not nobg) and guibg or nil,
-					gui = gui and gui or nil,
-				}
+			if has_catppuccin then
+				return function()
+					local guifg = colors[fg]
+					local guibg = gen_bg and require("modules.utils").hl_to_rgb("StatusLine", true, colors.mantle)
+						or colors[bg]
+					local nobg = special_nobg and require("core.settings").transparent_background
+					return {
+						fg = guifg and guifg or colors.none,
+						bg = (guibg and not nobg) and guibg or colors.none,
+						gui = gui and gui or nil,
+					}
+				end
+			else
+				-- Return `nil` if the theme is user-defined
+				return nil
 			end
 		end,
 	}
@@ -98,6 +132,7 @@ return function()
 			end,
 			padding = 0,
 			color = utils.gen_hl("surface1", true, true),
+			separator = { left = "", right = "" },
 		},
 
 		file_status = {
@@ -128,8 +163,8 @@ return function()
 
 		lsp = {
 			function()
-				local buf_ft = vim.api.nvim_get_option_value("filetype", { scope = "local" })
-				local clients = vim.lsp.get_clients()
+				local buf_ft = vim.bo.filetype
+				local clients = vim.lsp.get_clients({ buffer = vim.api.nvim_get_current_buf() })
 				local lsp_lists = {}
 				local available_servers = {}
 				if next(clients) == nil then
@@ -149,7 +184,7 @@ return function()
 				return next(available_servers) == nil and icons.misc.NoActiveLsp
 					or string.format("%s[%s]", icons.misc.LspAvailable, table.concat(available_servers, ", "))
 			end,
-			color = utils.gen_hl("blue", false, true, "nil", "bold"),
+			color = utils.gen_hl("blue", true, true, nil, "bold"),
 			cond = conditionals.has_enough_room,
 		},
 
@@ -166,7 +201,7 @@ return function()
 					return venv
 				end
 
-				if vim.api.nvim_get_option_value("filetype", { scope = "local" }) == "python" then
+				if vim.bo.filetype == "python" then
 					local venv = os.getenv("CONDA_DEFAULT_ENV")
 					if venv then
 						return icons.misc.PyEnv .. env_cleanup(venv)
@@ -178,13 +213,13 @@ return function()
 				end
 				return ""
 			end,
-			color = utils.gen_hl("green", false, true, "nil", "bold"),
+			color = utils.gen_hl("green", true, true),
 			cond = conditionals.has_enough_room,
 		},
 
 		tabwidth = {
 			function()
-				return icons.ui.Tab .. vim.api.nvim_get_option_value("shiftwidth", { scope = "local" })
+				return icons.ui.Tab .. vim.bo.tabstop
 			end,
 			padding = 1,
 		},
@@ -214,83 +249,100 @@ return function()
 		},
 	}
 
-	local function getWords()
-		if vim.bo.filetype == "md" or vim.bo.filetype == "txt" or vim.bo.filetype == "markdown" then
-			if vim.fn.wordcount().visual_words == 1 then
-				return tostring(vim.fn.wordcount().visual_words) .. " word"
-			elseif not (vim.fn.wordcount().visual_words == nil) then
-				return tostring(vim.fn.wordcount().visual_words) .. " words"
-			else
-				return tostring(vim.fn.wordcount().words) .. " words"
-			end
-		else
-			return vim.opt.fileencoding:get()
-		end
-	end
-
-	function Split(s, delimiter)
-		local result = {}
-		for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
-			table.insert(result, match)
-		end
-		return result
-	end
-
-	local function showLsp()
-		local msg = " LSP: No Active Lsp"
-		local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-		local clients = vim.lsp.get_clients()
-		if next(clients) == nil then
-			return msg
-		end
-		for _, client in ipairs(clients) do
-			local filetypes = client.config.filetypes
-			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-				return " LSP: " .. client.name
-			end
-		end
-		return msg
-	end
 	require("modules.utils").load_plugin("lualine", {
 		options = {
-			-- component_separators = "|",
+			icons_enabled = true,
+			theme = custom_theme(),
+			disabled_filetypes = { statusline = { "alpha" } },
 			component_separators = "",
-			section_separators = { left = "", right = "" },
-			globalstatus = true,
+			section_separators = { left = "", right = "" },
 		},
 		sections = {
-			lualine_a = {
-				{ "mode", separator = { left = "" }, right_padding = 2 },
+			lualine_a = { "mode" },
+			lualine_b = {
+				{
+					"filetype",
+					colored = true,
+					icon_only = false,
+					icon = { align = "left" },
+				},
+				components.file_status,
+				vim.tbl_extend("force", components.separator, {
+					cond = function()
+						return conditionals.has_git() and conditionals.has_comp_before()
+					end,
+				}),
 			},
-			lualine_b = { "branch", "diff", "diagnostics" },
 			lualine_c = {
+				{
+					"branch",
+					icon = icons.git_nosep.Branch,
+					color = utils.gen_hl("subtext0", true, true, nil, "bold"),
+					cond = conditionals.has_git,
+				},
+				{
+					"diff",
+					symbols = {
+						added = icons.git.Add,
+						modified = icons.git.Mod_alt,
+						removed = icons.git.Remove,
+					},
+					source = diff_source,
+					colored = false,
+					color = utils.gen_hl("subtext0", true, true),
+					cond = conditionals.has_git,
+					padding = { right = 1 },
+				},
+
 				{ utils.force_centering },
+				{
+					"diagnostics",
+					sources = { "nvim_diagnostic" },
+					sections = { "error", "warn", "info", "hint" },
+					symbols = {
+						error = icons.diagnostics.Error,
+						warn = icons.diagnostics.Warning,
+						info = icons.diagnostics.Information,
+						hint = icons.diagnostics.Hint_alt,
+					},
+				},
 				components.lsp,
 			},
 			lualine_x = {
-				getWords,
+				{
+					"encoding",
+					show_bomb = true,
+					fmt = string.upper,
+					padding = { left = 1 },
+					cond = conditionals.has_enough_room,
+				},
+				{
+					"fileformat",
+					symbols = {
+						unix = "LF",
+						dos = "CRLF",
+						mac = "CR", -- Legacy macOS
+					},
+					padding = { left = 1 },
+				},
 				components.tabwidth,
-				components.file_status,
 			},
 			lualine_y = {
+				components.separator,
 				components.python_venv,
-				"filetype",
-				"filesize",
-				"progress",
+				components.cwd,
 			},
-			lualine_z = {
-				{ "location", separator = { right = "" }, left_padding = 2 },
-			},
+			lualine_z = { components.file_location },
 		},
 		inactive_sections = {
-			lualine_a = { "filename" },
+			lualine_a = {},
 			lualine_b = {},
-			lualine_c = {},
-			lualine_x = {},
+			lualine_c = { "filename" },
+			lualine_x = { "location" },
 			lualine_y = {},
-			lualine_z = { "location" },
+			lualine_z = {},
 		},
 		tabline = {},
-		extensions = { "toggleterm", "nvim-tree", "neo-tree", "nvim-dap-ui", "fugitive", outline, diffview },
+		extensions = {},
 	})
 end
