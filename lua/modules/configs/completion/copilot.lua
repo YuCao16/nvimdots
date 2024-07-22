@@ -14,9 +14,14 @@ return function()
 				enabled = false,
 			},
 			filetypes = {
-                DressingInput = false,
+				["bigfile"] = false,
 				["dap-repl"] = false,
-				["big_file_disabled_ft"] = false,
+				["fugitive"] = false,
+				["fugitiveblame"] = false,
+				["git"] = false,
+				["gitcommit"] = false,
+				["log"] = false,
+				["toggleterm"] = false,
 			},
 		})
 	end, 100)

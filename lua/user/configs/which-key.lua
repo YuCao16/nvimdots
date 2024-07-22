@@ -1,0 +1,5 @@
+return {
+	win = {
+		border = "rounded",
+	}
+}

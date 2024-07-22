@@ -1,8 +1,13 @@
 return function()
 	local nvim_lsp = require("lspconfig")
+	require("completion.neoconf").setup()
 	require("completion.mason").setup()
 	require("completion.mason-lspconfig").setup()
+	require("completion.lsp_handlers").setup()
 
+	local opts = {
+		capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	}
 	-- Setup lsps that are not supported by `mason.nvim` but supported by `nvim-lspconfig` here.
 	if vim.fn.executable("dart") == 1 then
 		local ok, _opts = pcall(require, "user.configs.lsp-servers.dartls")
@@ -15,5 +20,5 @@ return function()
 
 	pcall(require, "user.configs.lsp")
 
-	vim.api.nvim_command([[LspStart]]) -- Start LSPs
+	pcall(vim.cmd.LspStart) -- Start LSPs
 end

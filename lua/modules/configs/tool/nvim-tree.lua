@@ -17,6 +17,10 @@ return function()
 		respect_buf_cwd = false,
 		sort_by = "name",
 		sync_root_with_cwd = true,
+		on_attach = function(bufnr)
+			require("nvim-tree.api").config.mappings.default_on_attach(bufnr)
+			vim.keymap.del("n", "<C-e>", { buffer = bufnr })
+		end,
 		view = {
 			adaptive_size = false,
 			centralize_selection = false,
@@ -122,8 +126,27 @@ return function()
 					enable = true,
 					chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
 					exclude = {
-						filetype = { "notify", "qf", "diff", "fugitive", "fugitiveblame" },
-						buftype = { "terminal", "help" },
+						buftype = {
+							"help",
+							"nofile",
+							"prompt",
+							"quickfix",
+							"terminal",
+						},
+						filetype = {
+							"dap-repl",
+							"diff",
+							"fugitive",
+							"fugitiveblame",
+							"git",
+							"notify",
+							"NvimTree",
+							"Outline",
+							"qf",
+							"TelescopePrompt",
+							"toggleterm",
+							"undotree",
+						},
 					},
 				},
 			},

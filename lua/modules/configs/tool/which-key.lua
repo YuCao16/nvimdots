@@ -30,7 +30,7 @@ return function()
 			},
 		},
 		win = {
-			border = "rounded",
+			border = "none",
 			padding = { 1, 2 },
 			wo = { winblend = 0 },
 		},

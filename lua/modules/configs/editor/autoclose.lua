@@ -5,6 +5,7 @@ return function()
 			["["] = { escape = false, close = true, pair = "[]" },
 			["{"] = { escape = false, close = true, pair = "{}" },
 
+			["<"] = { escape = true, close = true, pair = "<>", enabled_filetypes = { "rust" } },
 			[">"] = { escape = true, close = false, pair = "<>" },
 			[")"] = { escape = true, close = false, pair = "()" },
 			["]"] = { escape = true, close = false, pair = "[]" },
@@ -13,11 +14,26 @@ return function()
 			['"'] = { escape = true, close = true, pair = '""' },
 			["`"] = { escape = true, close = true, pair = "``" },
 			["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = { "rust" } },
-			["<"] = { escape = true, close = true, pair = "<>", disabled_filetypes = { "cpp" } },
 		},
 		options = {
-			disabled_filetypes = { "big_file_disabled_ft" },
 			disable_when_touch = false,
+			disabled_filetypes = {
+				"alpha",
+				"bigfile",
+				"checkhealth",
+				"dap-repl",
+				"diff",
+				"help",
+				"log",
+				"notify",
+				"NvimTree",
+				"Outline",
+				"qf",
+				"TelescopePrompt",
+				"toggleterm",
+				"undotree",
+				"vimwiki",
+			},
 		},
 	})
 end

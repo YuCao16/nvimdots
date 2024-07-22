@@ -4,14 +4,6 @@ local bind = require("keymap.bind")
 local map_cmd = bind.map_cmd
 
 local did_load_debug_mappings = false
-local keymap_info_debug = {
-	n = { K = false },
-	v = { K = false },
-}
-local keymap_info_original = {
-	n = { K = true },
-	v = { K = false },
-}
 local debug_keymap = {
 	["nv|K"] = map_cmd("<Cmd>lua require('dapui').eval()<CR>")
 		:with_noremap()

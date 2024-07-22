@@ -1,0 +1,5 @@
+return {
+	floating = {
+		border = "rounded",
+	},
+}

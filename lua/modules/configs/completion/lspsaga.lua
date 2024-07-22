@@ -1,6 +1,5 @@
 return function()
 	require("modules.utils").gen_lspkind_hl()
-
 	require("modules.utils").load_plugin("lspsaga", {
 		ui = {
 			-- currently only round theme
@@ -37,10 +36,6 @@ return function()
 		preview = {
 			lines_above = 0,
 			lines_below = 10,
-		},
-		scroll_preview = {
-			scroll_down = "<C-f>",
-			scroll_up = "<C-b>",
 		},
 		request_timeout = 4000,
 		symbol_in_winbar = {

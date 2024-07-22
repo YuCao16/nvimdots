@@ -26,7 +26,6 @@ end
 
 M.set_lsp_config = function()
 	local lsp = vim.lsp
-
 	local popup_opts = { border = "rounded", max_width = 80, silent = false, focusable = true }
 
 	lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, popup_opts)
@@ -53,19 +52,17 @@ end
 
 M.make_capabilities = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- TODO: why set dynamicRegistration to true as default?
-	capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-	capabilities.textDocument.completion.completionItem = {
-		documentationFormat = { "markdown", "plaintext" },
-	}
 	-- nvim-cmp supports additional completion capabilities
 	vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 	return capabilities
 end
 
-M.on_attach = function(client, bufnr)
-	vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
+M.setup = function()
+	M.set_lsp_config()
+	M.set_diagnostic_icons()
+end
 
+M.on_attach = function(client, bufnr)
 	-- autocmd
 	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
 	vim.api.nvim_create_autocmd("cursorhold", {
@@ -79,18 +76,6 @@ M.on_attach = function(client, bufnr)
 			})
 		end,
 	})
-
-	if client.server_capabilities.codelensprovider then
-		local lspcodelensgroup = vim.api.nvim_create_augroup("lspcodelens", { clear = true })
-		vim.api.nvim_create_autocmd({ "cursorhold", "bufenter", "insertleave" }, {
-			group = lspcodelensgroup,
-			callback = function()
-				vim.lsp.codelens.refresh()
-				vim.notify("codelens refreshed")
-			end,
-			buffer = 0,
-		})
-	end
 
 	if client.server_capabilities.documentHighlightProvider then
 		local highlight_name = vim.fn.printf("lsp_document_highlight_%d", bufnr) or "lsp_document_highlight_0"
@@ -116,8 +101,9 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.signatureHelpProvider = false
 	elseif client.name == "pylyzer" then
 		client.server_capabilities.hoverProvider = false
-	elseif client.name == "ruff" then
-		client.server_capabilities.documentFormattingProvider = false
+	elseif client.name == "ruff_lsp" then
+		-- client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.hoverProvider = false
 	elseif client.name == "jedi_language_server" then
 		-- client.server_capabilities.documentSymbolProvider = false
 		client.server_capabilities.codeActionProvider = false

@@ -2,6 +2,7 @@ return function()
 	local icons = {
 		ui = require("modules.utils.icons").get("ui"),
 	}
+
 	require("modules.utils").load_plugin("fidget", {
 		progress = {
 			suppress_on_insert = false, -- Suppress new messages while in insert mode

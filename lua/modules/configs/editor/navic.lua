@@ -3,7 +3,33 @@ return function()
 	if not status_ok then
 		return
 	end
-
+	local kind_space = {
+		Text = "󰉿 ",
+		Method = "󰆧 ",
+		Function = "󰊕 ",
+		Constructor = " ",
+		Field = "󰜢 ",
+		Variable = "󰀫 ",
+		Class = "󰠱 ",
+		Interface = " ",
+		Module = " ",
+		Property = "󰜢 ",
+		Unit = "󰑭 ",
+		Value = "󰎠 ",
+		Enum = " ",
+		Keyword = "󰌋 ",
+		Snippet = " ",
+		Color = "󰏘 ",
+		File = "󰈙 ",
+		Reference = "󰈇 ",
+		Folder = "󰉋 ",
+		EnumMember = " ",
+		Constant = "󰏿 ",
+		Struct = "󰙅 ",
+		Event = " ",
+		Operator = "󰆕 ",
+		TypeParameter = "󰊄 ",
+	}
 	local exclude_filetype = {
 		["help"] = true,
 		["dashboard"] = true,
@@ -19,7 +45,6 @@ return function()
 		["qf"] = true,
 		["VistaNvim"] = true,
 	}
-
 	local home = require("core.global").home
 
 	local excludes = function()
@@ -93,7 +118,7 @@ return function()
 	end
 
 	require("modules.utils").load_plugin("nvim-navic", {
-		icons = require("modules.utils.icons").get("kind_space"),
+		icons = kind_space,
 		highlight = true,
 		separator = " 〉",
 		depth_limit = 0,

@@ -16,23 +16,22 @@ M.setup = function()
 		signs = true,
 		underline = true,
 		virtual_text = diagnostics_virtual_text and {
-			severity_limit = diagnostics_level,
+			severity = {
+				min = vim.diagnostic.severity[diagnostics_level],
+			},
 		} or false,
-		-- set update_in_insert to false bacause it was enabled by lspsaga
+		-- set update_in_insert to false because it was enabled by lspsaga
 		update_in_insert = false,
 	})
 
-	local lsp_handlers = require("completion.lsp_handlers")
-	lsp_handlers.set_lsp_config()
-	lsp_handlers.set_diagnostic_icons()
-
-	local capabilities = lsp_handlers.make_capabilities()
-
 	local opts = {
-		capabilities = capabilities,
-		on_attach = lsp_handlers.on_attach,
+		capabilities = vim.tbl_deep_extend(
+			"force",
+			vim.lsp.protocol.make_client_capabilities(),
+			require("cmp_nvim_lsp").default_capabilities()
+		),
+		on_attach = require("completion.lsp_handlers").on_attach,
 	}
-
 	---A handler to setup all servers defined under `completion/servers/*.lua`
 	---@param lsp_name string
 	local function mason_lsp_handler(lsp_name)
@@ -52,6 +51,7 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
 			end
 			return
 		end
+
 		local ok, custom_handler = pcall(require, "user.configs.lsp-servers." .. lsp_name)
 		-- Use preset if there is no user definition
 		if not ok then

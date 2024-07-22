@@ -3,20 +3,19 @@ return function()
 		kind = require("modules.utils.icons").get("kind"),
 		type = require("modules.utils.icons").get("type"),
 		cmp = require("modules.utils.icons").get("cmp"),
-		other = require("modules.utils.icons").get("other"),
 	}
-	local settings = require("core.settings")
-	local MAX_LABEL_WIDTH = settings.cmp_max_width
-	-- safely load luasnip.nvim
-	local snip_ok, luasnip = pcall(require, "luasnip")
-	if not snip_ok then
-		vim.notify("luasnip failed", "error", { render = "minimal" })
-		return
-	end
 
-	local check_backspace = function()
-		local col = vim.fn.col(".") - 1
-		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+	local border = function(hl)
+		return {
+			{ "┌", hl },
+			{ "─", hl },
+			{ "┐", hl },
+			{ "│", hl },
+			{ "┘", hl },
+			{ "─", hl },
+			{ "└", hl },
+			{ "│", hl },
+		}
 	end
 
 	local compare = require("cmp.config.compare")
@@ -31,72 +30,52 @@ return function()
 	end
 
 	local use_copilot = require("core.settings").use_copilot
-	local mode = require("core.settings").mode
-	local comparators
-	if use_copilot and mode ~= "server" then
-		comparators = {
-			require("copilot_cmp.comparators").prioritize,
-			require("copilot_cmp.comparators").score,
+	local comparators = use_copilot == true
+			and {
+				require("copilot_cmp.comparators").prioritize,
+				require("copilot_cmp.comparators").score,
+				-- require("cmp_tabnine.compare"),
+				compare.offset, -- Items closer to cursor will have lower priority
+				compare.exact,
+				-- compare.scopes,
+				compare.lsp_scores,
+				compare.sort_text,
+				compare.score,
+				compare.recently_used,
+				-- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
+				require("cmp-under-comparator").under,
+				compare.kind,
+				compare.length,
+				compare.order,
+			}
+		or {
 			-- require("cmp_tabnine.compare"),
-			compare.offset,
+			compare.offset, -- Items closer to cursor will have lower priority
 			compare.exact,
 			-- compare.scopes,
 			compare.lsp_scores,
 			compare.sort_text,
 			compare.score,
 			compare.recently_used,
-			-- compare.locality,
+			-- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
 			require("cmp-under-comparator").under,
 			compare.kind,
 			compare.length,
 			compare.order,
 		}
-	elseif mode == "server" then
-		comparators = {
-			require("copilot_cmp.comparators").prioritize,
-			require("copilot_cmp.comparators").score,
-			compare.offset,
-			compare.exact,
-			compare.lsp_scores,
-			compare.sort_text,
-			compare.score,
-			compare.recently_used,
-			require("cmp-under-comparator").under,
-			compare.kind,
-			compare.length,
-			compare.order,
-		}
-	else
-		comparators = {
-			-- require("cmp_tabnine.compare"),
-			compare.offset,
-			compare.exact,
-			-- compare.scopes,
-			compare.lsp_scores,
-			compare.sort_text,
-			compare.score,
-			compare.recently_used,
-			-- compare.locality,
-			require("cmp-under-comparator").under,
-			compare.kind,
-			compare.length,
-			compare.order,
-		}
-	end
 
 	local cmp = require("cmp")
 	require("modules.utils").load_plugin("cmp", {
-		preselect = cmp.PreselectMode.Item,
+		preselect = cmp.PreselectMode.None,
 		window = {
-			completion = cmp.config.window.bordered({
-				bordered = "rounded",
-				col_offset = -1,
-				scrollbar = true,
-				winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:PmenuSel",
-			}),
+			completion = {
+				border = border("PmenuBorder"),
+				winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:PmenuSel",
+				scrollbar = false,
+			},
 			documentation = {
-				border = "rounded",
-				winhighlight = "Normal:Normal,FloatBorder:Normal",
+				border = border("CmpDocBorder"),
+				winhighlight = "Normal:CmpDoc",
 			},
 		},
 		sorting = {
@@ -108,8 +87,10 @@ return function()
 			format = function(entry, vim_item)
 				local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
 				-- load lspkind icons
-				vim_item.kind = string.format("%s ", lspkind_icons[vim_item.kind] or icons.cmp.undefined)
+				vim_item.kind =
+					string.format(" %s  %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
 
+				-- set up labels for completion entries
 				vim_item.menu = setmetatable({
 					cmp_tabnine = "[TN]",
 					copilot = "[CPLT]",
@@ -120,21 +101,25 @@ return function()
 					path = "[PATH]",
 					tmux = "[TMUX]",
 					treesitter = "[TS]",
+					latex_symbols = "[LTEX]",
 					luasnip = "[SNIP]",
 					spell = "[SPELL]",
-					codeium = "[CODI]",
-					latex_symbols = "[LTEX]",
 				}, {
 					__index = function()
 						return "[BTN]" -- builtin/unknown source names
 					end,
 				})[entry.source.name]
 
+				-- cut down long results
 				local label = vim_item.abbr
-
-				local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+				local truncated_label = vim.fn.strcharpart(label, 0, 80)
 				if truncated_label ~= label then
-					vim_item.abbr = truncated_label .. icons.other.ellipsis
+					vim_item.abbr = truncated_label .. "..."
+				end
+
+				-- deduplicate results from nvim_lsp
+				if entry.source.name == "nvim_lsp" then
+					vim_item.dup = 0
 				end
 
 				return vim_item
@@ -149,36 +134,40 @@ return function()
 		},
 		-- You can set mappings if you want
 		mapping = cmp.mapping.preset.insert({
-			["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-			["<down>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "s", "c" }),
-			["<up>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "s", "c" }),
-			["<C-p>"] = cmp.mapping.select_prev_item(),
-			["<C-n>"] = cmp.mapping.select_next_item(),
+			["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 			["<C-d>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-w>"] = cmp.mapping.close(),
+			["<C-w>"] = cmp.mapping.abort(),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
-					cmp.select_next_item()
-				elseif luasnip.expandable() then
-					luasnip.expand()
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
-				elseif not check_backspace() then
-					cmp.complete()
+					cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				elseif require("luasnip").expand_or_locally_jumpable() then
+					require("luasnip").expand_or_jump()
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif luasnip.jumpable(-1) then
-					luasnip.jump(-1)
+					cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+				elseif require("luasnip").jumpable(-1) then
+					require("luasnip").jump(-1)
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
+			["<CR>"] = cmp.mapping({
+				i = function(fallback)
+					if cmp.visible() and cmp.get_active_entry() then
+						cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })
+					else
+						fallback()
+					end
+				end,
+				s = cmp.mapping.confirm({ select = true }),
+				c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+			}),
 		}),
 		snippet = {
 			expand = function(args)
@@ -189,7 +178,7 @@ return function()
 		sources = {
 			{ name = "nvim_lsp", max_item_count = 350 },
 			{ name = "nvim_lua" },
-			{ name = "luasnip", priority = 9 },
+			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "treesitter" },
 			{ name = "spell" },
@@ -199,30 +188,19 @@ return function()
 				name = "buffer",
 				option = {
 					get_bufnrs = function()
-						return vim.api.nvim_list_bufs()
+						return vim.api.nvim_buf_line_count(0) < 7500 and vim.api.nvim_list_bufs() or {}
 					end,
 				},
 			},
-			{ name = "latex_symbols", priority = 9 },
+			{ name = "latex_symbols" },
 			{ name = "copilot" },
+			-- { name = "codeium" },
 			-- { name = "cmp_tabnine" },
-			{ name = "codeium" },
 		},
 		experimental = {
 			ghost_text = {
 				hl_group = "Whitespace",
 			},
 		},
-	})
-	cmp.setup.cmdline(":", {
-		completion = {
-			completeopt = "nenu,menuone,noselect",
-		},
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = "path" },
-		}, {
-			{ name = "cmdline" },
-		}),
 	})
 end

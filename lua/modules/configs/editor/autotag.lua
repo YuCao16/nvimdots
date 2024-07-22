@@ -5,13 +5,5 @@ return function()
 			enable_rename = true, -- Auto rename pairs of tags
 			enable_close_on_slash = false, -- Auto close on trailing </
 		},
-		filetypes = {
-			"html",
-			"javascript",
-			"javascriptreact",
-			"typescriptreact",
-			"vue",
-			"xml",
-		},
 	})
 end
