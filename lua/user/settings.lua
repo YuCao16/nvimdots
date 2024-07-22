@@ -37,7 +37,7 @@ local full_lsp_deps = {
 local server_null_ls_deps = {
 	"prettier",
 	"stylua",
-	"ruff",
+	"ruff_lsp",
 }
 
 local full_null_ls_deps = {
@@ -111,6 +111,7 @@ local server_specific_plugins = {
 	"kylechui/nvim-surround",
 	"folke/paint.nvim",
 	"mrjones2014/smart-splits.nvim",
+	"mrcjkb/rustaceanvim",
 }
 
 local function merge_lists(base_list, additional_list)
@@ -149,6 +150,8 @@ settings.disabled_plugins =
 settings.lsp_deps = function()
 	return update_settings_for_mode(settings.mode, full_lsp_deps, server_lsp_deps, "use-specific")
 end
-settings.null_ls_deps = update_settings_for_mode(settings.mode, full_null_ls_deps, server_null_ls_deps, "use-specific")
+settings.null_ls_deps = function()
+	return update_settings_for_mode(settings.mode, full_null_ls_deps, server_null_ls_deps, "use-specific")
+end
 
 return settings
