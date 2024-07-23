@@ -82,6 +82,12 @@ editor["nvim-pack/nvim-spectre"] = {
 	cmd = { "Spectre" },
 	config = true,
 }
+editor["lambdalisue/suda.vim"] = {
+	lazy = true,
+	cmd = { "SudaRead", "SudaWrite" },
+	init = false,
+	config = require("editor.suda"),
+}
 
 ----------------------------------------------------------------------
 --                  :treesitter related plugins                    --

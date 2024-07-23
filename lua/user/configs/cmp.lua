@@ -45,7 +45,7 @@ else
 	luasnip.expand_or_jumpable = function()
 		return false
 	end
-	luasnip.jumpable = function()
+	luasnip.jumpable = function(args)
 		return false
 	end
 end

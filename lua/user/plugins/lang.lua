@@ -7,6 +7,30 @@ lang["AckslD/swenv.nvim"] = {
 	config = require("lang.swenv"),
 }
 
+-- Rust
+lang["mrcjkb/rustaceanvim"] = {
+	lazy = true,
+	ft = "rust",
+	version = "*",
+	init = false,
+	config = function()
+		vim.g.rustaceanvim = {
+			-- Disable automatic DAP configuration to avoid conflicts with previous user configs
+			dap = {
+				adapter = false,
+				configuration = false,
+				autoload_configurations = false,
+			},
+			tools = {
+				float_win_config = {
+					border = "rounded",
+				},
+			},
+		}
+	end,
+	dependencies = { "nvim-lua/plenary.nvim" },
+}
+
 -- Markdown
 lang["plasticboy/vim-markdown"] = {
 	lazy = true,
