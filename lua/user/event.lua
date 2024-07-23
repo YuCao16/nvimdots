@@ -138,6 +138,26 @@ vim.api.nvim_create_user_command("Diffoff", function()
 	end
 end, {})
 
+-- resolved OSC 52 clipboard issue, see https://github.com/neovim/neovim/discussions/28010
+vim.o.clipboard = "unnamedplus"
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
+
 require("user.commands")
 
 return definitions
