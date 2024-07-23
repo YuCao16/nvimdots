@@ -2,7 +2,7 @@ local completion = {}
 
 completion["yucao16/lspsaga.nvim"] = {
 	lazy = true,
-	cmd = "Lspsaga",
+	cmd = {"Lspsaga"},
 	-- event = "LspAttach",
 	config = require("completion.lspsaga"),
 	dependencies = { "nvim-tree/nvim-web-devicons" },

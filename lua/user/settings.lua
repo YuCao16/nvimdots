@@ -5,7 +5,7 @@ local settings = {}
 settings["colorscheme"] = "onedark"
 
 -- Mode
-settings["mode"] = "server"
+settings["mode"] = "full"
 
 -- Set to cmp menu max width
 ---@type number

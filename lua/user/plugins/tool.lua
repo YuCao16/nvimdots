@@ -29,13 +29,12 @@ tool["nvim-neo-tree/neo-tree.nvim"] = {
 }
 tool["jackMort/ChatGPT.nvim"] = {
 	lazy = true,
-	event = { "VeryLazy" },
+	cmd = { "ChatGPT", "ChatGPTEditWithInstruction", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode" },
 	config = true,
 }
-
 tool["stevearc/oil.nvim"] = {
 	lazy = true,
-	cmd = "Oil",
+	cmd = { "Oil" },
 	config = require("tool.oil"),
 }
 tool["samjwill/nvim-unception"] = {
@@ -101,6 +100,11 @@ tool["m4xshen/hardtime.nvim"] = {
 			disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil" },
 		})
 	end,
+}
+tool["CRAG666/code_runner.nvim"] = {
+	lazy = true,
+	config = require("tool.code_runner"),
+	cmd = { "RunCode" },
 }
 
 ----------------------------------------------------------------------

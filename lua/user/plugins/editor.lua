@@ -60,7 +60,7 @@ editor["Wansmer/treesj"] = {
 }
 editor["nvim-treesitter/playground"] = {
 	lazy = true,
-	cmd = "TSPlaygroundToggle",
+	cmd = { "TSPlaygroundToggle" },
 	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }
 editor["smoka7/hop.nvim"] = {

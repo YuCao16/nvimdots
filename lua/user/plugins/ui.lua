@@ -11,6 +11,9 @@ ui["akinsho/bufferline.nvim"] = {
 ui["folke/tokyonight.nvim"] = {
 	lazy = true,
 }
+ui["Jint-lzxy/nvim"] = {
+	lazy = true,
+}
 ui["yucao16/dashboard-nvim"] = {
 	lazy = true,
 	event = { "BufWinEnter" },

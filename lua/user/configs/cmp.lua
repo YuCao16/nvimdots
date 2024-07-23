@@ -25,15 +25,17 @@ end
 
 local use_copilot = require("core.settings").use_copilot
 local mode = require("core.settings").mode
+
 -- safely load luasnip.nvim
+local snip_ok, luasnip
 if mode ~= "server" then
-	local snip_ok, luasnip = pcall(require, "luasnip")
+	snip_ok, luasnip = pcall(require, "luasnip")
 	if not snip_ok then
-		vim.notify("luasnip failed", "error", { render = "minimal" })
+		vim.notify("luasnip failed", vim.log.levels.ERROR, { render = "minimal" })
 		return
 	end
 else
-	local luasnip = {}
+	luasnip = {}
 	luasnip.visible = function()
 		return false
 	end
@@ -47,6 +49,7 @@ else
 		return false
 	end
 end
+
 local comparators
 if use_copilot and mode ~= "server" then
 	comparators = {

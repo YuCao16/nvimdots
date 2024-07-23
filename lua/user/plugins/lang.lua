@@ -10,7 +10,7 @@ lang["AckslD/swenv.nvim"] = {
 -- Markdown
 lang["plasticboy/vim-markdown"] = {
 	lazy = true,
-	ft = "markdown",
+	ft = { "markdown" },
 	config = function()
 		vim.g.vim_markdown_math = 1
 		vim.g.tex_conceal = ""
@@ -21,18 +21,12 @@ lang["plasticboy/vim-markdown"] = {
 }
 lang["ellisonleao/glow.nvim"] = {
 	lazy = true,
-	ft = { "markdown" },
 	cmd = { "Glow" },
 	config = function()
 		require("glow").setup({
 			border = "rounded",
 		})
 	end,
-}
-lang["lukas-reineke/headlines.nvim"] = {
-	lazy = true,
-	ft = { "org" },
-	config = require("lang.headlines"),
 }
 lang["dhruvasagar/vim-table-mode"] = {
 	lazy = true,
@@ -96,6 +90,11 @@ lang["nvim-orgmode/orgmode"] = {
 		},
 	},
 }
+lang["lukas-reineke/headlines.nvim"] = {
+	lazy = true,
+	ft = { "org" },
+	config = require("lang.headlines"),
+}
 
 -- Typst
 lang["kaarmu/typst.vim"] = {
@@ -111,11 +110,6 @@ lang["mtdl9/vim-log-highlighting"] = {
 		"txt",
 		"log",
 	},
-}
-lang["CRAG666/code_runner.nvim"] = {
-	lazy = true,
-	config = require("lang.code_runner"),
-	cmd = { "RunCode" },
 }
 
 return lang
