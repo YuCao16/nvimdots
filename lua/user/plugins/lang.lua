@@ -28,7 +28,7 @@ lang["mrcjkb/rustaceanvim"] = {
 			},
 		}
 	end,
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 }
 
 -- Markdown
