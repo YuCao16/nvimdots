@@ -88,12 +88,8 @@ return function()
 		if excludes() then
 			return
 		end
-		local filetype_icon = " " .. get_filetype_icon() .. " "
-		local file_path_clean = clean_filepath(vim.fn.fnamemodify(vim.fn.expand("%:p"), ":h"))
-		local file_name = vim.fn.expand("%:t")
-		local separator = " 〉"
 		local location = "%{%v:lua.require'nvim-navic'.get_location()%}"
-		local value = string.format("%s%s%s%s%s", file_path_clean, filetype_icon, file_name, separator, location)
+		local value = string.format("%s", location)
 		local set_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
 		if not set_ok then
 			return
@@ -147,7 +143,6 @@ return function()
 			show_winbar()
 		end,
 	})
-
 	vim.api.nvim_create_autocmd({ "LspAttach" }, {
 		group = "LspAttach_navic",
 		callback = function(args)
@@ -155,6 +150,9 @@ return function()
 				return
 			end
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			if client == nil then
+				return
+			end
 			if client.server_capabilities.documentSymbolProvider then
 				if client.name ~= "pyright" then
 					navic.attach(client, args.buf)
