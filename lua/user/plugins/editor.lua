@@ -30,7 +30,7 @@ editor["famiu/bufdelete.nvim"] = {
 	lazy = true,
 	event = { "BufReadPost" },
 }
-editor["SmiteshP/nvim-navic"] = {
+editor["yucao16/nvim-navic"] = {
 	lazy = true,
 	event = { "BufReadPost" },
 	config = require("editor.navic"),
