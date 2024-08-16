@@ -53,5 +53,6 @@ return function()
 
 		select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
 		move_cursor_key = "<c-z>", -- imap, use nvim_set_current_win to move cursor between current win and floating
+		cursorhold_update = false -- https://github.com/ray-x/lsp_signature.nvim/issues/298
 	}
 end
