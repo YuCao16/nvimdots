@@ -58,11 +58,6 @@ lang["dhruvasagar/vim-table-mode"] = {
 	ft = { "markdown", "tex", "ipynb", "org" },
 	config = require("lang.vim_table_mode"),
 }
-lang["MeanderingProgrammer/markdown.nvim"] = {
-	lazy = true,
-	ft = { "markdown" },
-	config = true,
-}
 
 -- Latex
 lang["lervag/vimtex"] = {
