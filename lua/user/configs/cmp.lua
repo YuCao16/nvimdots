@@ -69,21 +69,6 @@ if use_copilot and mode ~= "server" then
 		compare.length,
 		compare.order,
 	}
-elseif mode == "server" then
-	comparators = {
-		require("copilot_cmp.comparators").prioritize,
-		require("copilot_cmp.comparators").score,
-		compare.offset,
-		compare.exact,
-		compare.lsp_scores,
-		compare.sort_text,
-		compare.score,
-		compare.recently_used,
-		require("cmp-under-comparator").under,
-		compare.kind,
-		compare.length,
-		compare.order,
-	}
 else
 	comparators = {
 		-- require("cmp_tabnine.compare"),
