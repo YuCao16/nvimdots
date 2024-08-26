@@ -104,6 +104,11 @@ M.on_attach = function(client, bufnr)
 	elseif client.name == "ruff_lsp" then
 		-- client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.hoverProvider = false
+		client.server_capabilities.codeActionProvider = false
+		client.server_capabilities.completionProvider = false
+		client.server_capabilities.referencesProvider = false
+		client.server_capabilities.definitionProvider = false
+		client.server_capabilities.documentHighlightProvider = false
 	elseif client.name == "jedi_language_server" then
 		-- client.server_capabilities.documentSymbolProvider = false
 		client.server_capabilities.codeActionProvider = false

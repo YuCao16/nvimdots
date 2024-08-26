@@ -7,6 +7,10 @@ settings["colorscheme"] = "onedark"
 -- Mode
 settings["mode"] = "full"
 
+-- Set it to false if you don't use copilot
+---@type boolean
+settings["use_copilot"] = (settings["mode"] == "full") and true or false
+
 -- Set to cmp menu max width
 ---@type number
 settings["cmp_max_width"] = 45
@@ -120,12 +124,14 @@ local server_specific_plugins = {
 	"tpope/vim-fugitive",
 	"FabianWirth/search.nvim",
 	"numToStr/Comment.nvim",
-	"windwp/nvim-autopairs",
 	"petertriho/nvim-scrollbar",
 	"folke/todo-comments.nvim",
 	"brenoprata10/nvim-highlight-colors",
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
+	"samjwill/nvim-unception",
+	"AckslD/swenv.nvim",
+	"yetone/avante.nvim",
 }
 
 local function merge_lists(base_list, additional_list)
