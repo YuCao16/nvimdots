@@ -5,7 +5,7 @@ local settings = {}
 settings["colorscheme"] = "onedark"
 
 -- Mode
-settings["mode"] = "full"
+settings["mode"] = os.getenv("NVIM_MODE") or "server"
 
 -- Set it to false if you don't use copilot
 ---@type boolean
@@ -71,6 +71,8 @@ local base_disabled_plugins = {
 	"tpope/vim-sleuth",
 	"ray-x/go.nvim",
 	"Bekaboo/dropbar.nvim",
+	"YuCao16/lsp_signature.nvim",
+	"ray-x/lsp_signature.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",

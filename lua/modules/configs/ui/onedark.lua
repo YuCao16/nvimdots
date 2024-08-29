@@ -25,6 +25,9 @@ return function()
 			["@variable.parameter"] = { link = "@parameter" },
 			-- ["@type.builtin"] = { link = "@function.builtin" },
 
+			-- Sianature
+			LspSignatureActiveParameter = { link = "Search" },
+
 			-- Neo-Tree
 			NeoTreeDirectoryIcon = { fg = "#8094b4" },
 			NeoTreeIndentMarker = { fg = "#abb2bf" },
