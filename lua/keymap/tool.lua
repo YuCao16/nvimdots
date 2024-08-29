@@ -48,10 +48,6 @@ local plug_map = {
 		:with_noremap()
 		:with_silent()
 		:with_desc("terminal: Toggle float"),
-	["n|<leader>ct"] = map_cr("ToggleTerm direction=tab")
-		:with_noremap()
-		:with_silent()
-		:with_desc("terminal: Toggle tab"),
 	["n|<leader>cg"] = map_callback(function()
 			_toggle_lazygit()
 		end)

@@ -31,13 +31,30 @@ tool["yetone/avante.nvim"] = {
 	lazy = true,
 	cmd = { "AvanteAsk" },
 	build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
-	opts = {
-		provider = "claude",
-		claude = {
-			endpoint = "https://api.anthropic.com",
-			model = "claude-3-5-sonnet-20240620",
-			temperature = 0,
-			max_tokens = 4096,
+	config = require("tool.avante"),
+	keys = {
+		{
+			"<leader>aa",
+			function()
+				require("avante.api").ask()
+			end,
+			desc = "avante: ask",
+			mode = { "n", "v" },
+		},
+		{
+			"<leader>ar",
+			function()
+				require("avante.api").refresh()
+			end,
+			desc = "avante: refresh",
+		},
+		{
+			"<leader>ae",
+			function()
+				require("avante.api").edit()
+			end,
+			desc = "avante: edit",
+			mode = "v",
 		},
 	},
 	dependencies = {
@@ -52,6 +69,23 @@ tool["yetone/avante.nvim"] = {
 				file_types = { "markdown", "Avante" },
 			},
 			ft = { "markdown", "Avante" },
+		},
+		{
+			-- support for image pasting
+			"HakonHarnes/img-clip.nvim",
+			event = "VeryLazy",
+			opts = {
+				-- recommended settings
+				default = {
+					embed_image_as_base64 = false,
+					prompt_for_file_name = false,
+					drag_and_drop = {
+						insert_mode = true,
+					},
+					-- required for Windows users
+					use_absolute_path = true,
+				},
+			},
 		},
 	},
 }
