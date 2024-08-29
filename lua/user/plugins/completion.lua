@@ -2,7 +2,7 @@ local completion = {}
 
 completion["yucao16/lspsaga.nvim"] = {
 	lazy = true,
-	cmd = {"Lspsaga"},
+	cmd = { "Lspsaga" },
 	-- event = "LspAttach",
 	config = require("completion.lspsaga"),
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -34,7 +34,7 @@ completion["hrsh7th/nvim-cmp"] = {
 		{ "hrsh7th/cmp-buffer" },
 		{ "hrsh7th/cmp-cmdline" },
 		{ "ray-x/cmp-treesitter", commit = "c8e3a74" },
-		-- { "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
+		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 		{
 			"Exafunction/codeium.nvim",
 			dependencies = {

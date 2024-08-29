@@ -205,6 +205,7 @@ return function()
 		},
 		-- You should specify your *installed* sources.
 		sources = {
+			{ name = 'nvim_lsp_signature_help' },
 			{ name = "nvim_lsp", max_item_count = 350 },
 			{ name = "nvim_lua" },
 			{ name = "luasnip", priority = 9 },
