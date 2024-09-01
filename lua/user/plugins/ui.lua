@@ -15,8 +15,6 @@ ui["Jint-lzxy/nvim"] = {
 	lazy = true,
 }
 ui["yucao16/dashboard-nvim"] = {
-	lazy = true,
-	event = { "BufWinEnter" },
 	config = require("ui.dashboard"),
 }
 ui["yucao16/onedark.nvim"] = {

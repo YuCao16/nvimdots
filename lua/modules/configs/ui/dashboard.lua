@@ -26,19 +26,19 @@ return function()
 			desc = "Recently opened files                   ",
 			action = "lua require('telescope').extensions.recent_files.pick()",
 			-- action = "Telescope oldfiles",
-			shortcut = "SPC s o",
+			shortcut = "LEADER s o",
 		},
 		{
 			icon = "  ",
 			desc = "Recently latest session                 ",
-			shortcut = "SPC s l",
+			shortcut = "LEADER s l",
 			-- action = "SessionManager load_last_session",
 			action = "SessionLoadLast",
 		},
 		{
 			icon = "  ",
 			desc = "Session History                         ",
-			shortcut = "SPC p u",
+			shortcut = "LEADER p u",
 			-- action = "SessionManager load_session",
 			action = "Telescope persisted",
 		},
@@ -46,31 +46,31 @@ return function()
 			icon = "  ",
 			desc = "New File                                ",
 			action = "enew",
-			shortcut = "SPC f d",
+			shortcut = "LEADER f d",
 		},
 		{
 			icon = "  ",
 			desc = "Find  File                              ",
 			action = "Telescope find_files find_command=rg,--hidden,--files",
-			shortcut = "SPC f f",
+			shortcut = "LEADER f f",
 		},
 		{
 			icon = "  ",
 			desc = "Find  word                              ",
 			action = "Telescope live_grep",
-			shortcut = "SPC f w",
+			shortcut = "LEADER f w",
 		},
 		{
 			icon = "  ",
 			desc = "Change colorscheme                      ",
 			action = "Telescope colorscheme",
-			shortcut = "SPC f d",
+			shortcut = "LEADER f d",
 		},
 		{
 			icon = "  ",
 			desc = "Open Personal dotfiles                  ",
 			action = "lua require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })",
-			shortcut = "SPC f d",
+			shortcut = "LEADER f d",
 		},
 		-- {
 		-- 	icon = "  ",
@@ -85,4 +85,15 @@ return function()
 		-- 	action = "PackerUpdate",
 		-- },
 	}
+	if vim.o.filetype == "lazy" then
+		vim.api.nvim_create_autocmd("WinClosed", {
+			pattern = tostring(vim.api.nvim_get_current_win()),
+			once = true,
+			callback = function()
+				vim.schedule(function()
+					pcall(vim.cmd.Dashboard)
+				end)
+			end,
+		})
+	end
 end
