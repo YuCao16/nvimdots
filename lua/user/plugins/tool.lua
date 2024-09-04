@@ -70,12 +70,10 @@ tool["yetone/avante.nvim"] = {
 			opts = {
 				file_types = { "markdown", "Avante" },
 			},
-			ft = { "markdown", "Avante" },
 		},
 		{
 			-- support for image pasting
 			"HakonHarnes/img-clip.nvim",
-			event = "VeryLazy",
 			opts = {
 				-- recommended settings
 				default = {
