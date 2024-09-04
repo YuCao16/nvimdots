@@ -30,7 +30,9 @@ tool["nvim-neo-tree/neo-tree.nvim"] = {
 tool["yetone/avante.nvim"] = {
 	lazy = true,
 	cmd = { "AvanteAsk" },
-	build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
+	version = false, -- set this if you want to always pull the latest change
+	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	build = "make",
 	config = require("tool.avante"),
 	keys = {
 		{
