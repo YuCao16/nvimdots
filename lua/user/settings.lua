@@ -133,7 +133,8 @@ local server_specific_plugins = {
 	"saadparwaiz1/cmp_luasnip",
 	"samjwill/nvim-unception",
 	"AckslD/swenv.nvim",
-	"yetone/avante.nvim",
+	"JoosepAlviste/nvim-ts-context-commentstring",
+	"numToStr/Comment.nvim",
 }
 
 local function merge_lists(base_list, additional_list)
