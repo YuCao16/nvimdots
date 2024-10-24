@@ -73,6 +73,7 @@ local base_disabled_plugins = {
 	"Bekaboo/dropbar.nvim",
 	"YuCao16/lsp_signature.nvim",
 	"ray-x/lsp_signature.nvim",
+	"Exafunction/codeium.nvim",
 }
 local server_specific_plugins = {
 	"LunarVim/bigfile.nvim",
