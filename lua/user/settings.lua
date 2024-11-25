@@ -41,7 +41,7 @@ local full_lsp_deps = {
 local server_null_ls_deps = {
 	"prettier",
 	"stylua",
-	"ruff_lsp",
+	"ruff",
 }
 
 local full_null_ls_deps = {
