@@ -104,7 +104,12 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 	dependencies = {
 		{ "anuvyklack/pretty-fold.nvim" },
 		{ "RRethy/nvim-treesitter-endwise" },
-		{ "andymass/vim-matchup" },
+		{
+			"andymass/vim-matchup",
+			init = function()
+				vim.g.matchup_matchparen_offscreen = { method = "popup" }
+			end,
+		},
 		{ "mfussenegger/nvim-treehopper" },
 		{ "nvim-treesitter/nvim-treesitter-textobjects" },
 		{
